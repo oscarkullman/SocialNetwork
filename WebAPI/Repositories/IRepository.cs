@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using WebAPI.Specification;
 
 namespace WebAPI.Repositories
 {
@@ -7,5 +8,7 @@ namespace WebAPI.Repositories
         Task<ICollection<TEntity>> Query();
 
         Task<ICollection<TEntity>> Query(Expression<Func<TEntity, bool>> expression);
+
+        Task<ICollection<TEntity>> QueryWithSpec(ISpecification<TEntity> spec);
     }
 }
