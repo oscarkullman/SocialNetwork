@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPI.Infrastructure.Services;
 
 namespace WebAPI.Controllers
 {
@@ -6,11 +7,12 @@ namespace WebAPI.Controllers
     [Route("api/users/")]
     public class UsersController 
     {
+        private readonly IUserService _userService;
 
-
-        public UsersController()
+        public UsersController(
+            IUserService userService)
         {
-
+            _userService = userService;
         }
 
         [HttpGet("Test")]

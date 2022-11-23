@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xUnitTests", "xUnitTests\xU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frontend", "Frontend\Frontend.csproj", "{4C1F0EDC-A14A-4589-AD81-1C1671EF728B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Classes", "SocialNetwork.Classes\SocialNetwork.Classes.csproj", "{75A9BAC2-E514-46B5-8C12-4B24B2C911E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4C1F0EDC-A14A-4589-AD81-1C1671EF728B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C1F0EDC-A14A-4589-AD81-1C1671EF728B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C1F0EDC-A14A-4589-AD81-1C1671EF728B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75A9BAC2-E514-46B5-8C12-4B24B2C911E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A9BAC2-E514-46B5-8C12-4B24B2C911E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A9BAC2-E514-46B5-8C12-4B24B2C911E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A9BAC2-E514-46B5-8C12-4B24B2C911E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
