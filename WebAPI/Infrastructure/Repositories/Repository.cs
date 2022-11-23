@@ -24,6 +24,11 @@ namespace WebAPI.Repositories
             return await _context.Where(expression).ToListAsync();
         }
 
+        public async Task<TEntity?> QueryFirst(Expression<Func<TEntity, bool>> expression)
+        {
+            return await _context.FirstOrDefaultAsync(expression);
+        }
+
         public async Task<ICollection<TEntity>> QueryWithSpec(ISpecification<TEntity> spec)
         {
             return await ApplySpec(spec).ToListAsync();

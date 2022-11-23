@@ -1,4 +1,4 @@
-﻿namespace Frontend.Models
+﻿namespace SocialNetwork.Classes.Account
 {
     public class LoginModel
     {
