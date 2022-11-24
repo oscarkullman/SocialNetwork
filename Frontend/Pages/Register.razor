@@ -1,32 +1,29 @@
 ﻿@page "/register"
 @using Frontend.Components
+@using Frontend.Models
 @using Frontend.Layout
 @layout Empty
 
 <Navigation />
 
-<h3>Register</h3>
-
-<EditForm Model="@RegisterModel" OnValidSubmit="@RegisterUser">
-    <label for="first-name">First Name</label><br />
-    <input type="text" name="first-name" @bind-value="RegisterModel.FirstName" />
-    <br />
-    <label for="last-name">Last Name</label><br />
-    <input type="text" name="last-name" @bind-value="RegisterModel.LastName" />
-    <br />
-    <label for="username">Username</label><br />
-    <input type="text" name="username" @bind-value="RegisterModel.Username" />
-    <br />
-    <label for="email">Email</label><br />
-    <input type="text" name="email" @bind-value="RegisterModel.Email" />
-    <br />
-    <label for="password">Password</label><br />
-    <input type="password" name="password" @bind-value="RegisterModel.Password" />
-    <br />
-    <label for="repeat-password">Repeat Password</label><br />
-    <input type="password" name="repeat-password" @bind-value="RegisterModel.RepeatPassword" />
-    <br />
-    <br />
-    <button type="submit">Register</button>
-</EditForm>
-
+<div class="content">
+    <EditForm Model="@RegisterModel" OnValidSubmit="@RegisterUser">
+        <h2 class="content__title">Register for the social network!</h2>
+        <input class="content__input" type="text" name="first-name" placeholder="First Name" @bind-value="RegisterModel.FirstName" />
+        <br /><br />
+        <input class="content__input" type="text" name="last-name" placeholder="Last Name" @bind-value="RegisterModel.LastName" />
+        <br /><br />
+        <input class ="content__input" type="text" name="username" placeholder="Username" @bind-value="RegisterModel.Username" />
+        <br /><br />
+        <input class="content__input" type="text" name="email" placeholder="Email" @bind-value="RegisterModel.Email" />
+        <br /><br />
+        <input class="content__input" type="text" name="password" placeholder="Password" @bind-value="RegisterModel.Password" />
+        <br /><br />
+        <input class="content__input" type="text" name="repeat-password" placeholder="Repeat password" @bind-value="RegisterModel.RepeatPassword" />
+        <br /><br />
+            <label for="Agree">By ticking, you are confirming that you have read, understood and agreed to our <a class="content__link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">terms of service</a></label><br />
+            <input class="content__checkbox" type="checkbox" name="Agree" required />      
+        <br /><br />
+        <button class="content__button" type="submit">Register</button>
+    </EditForm>
+</div>
