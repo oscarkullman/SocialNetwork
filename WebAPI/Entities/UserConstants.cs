@@ -5,10 +5,10 @@ namespace WebAPI.Entities
 {
     public class UserConstants
     {
-        public static List<LoginModel> Users = new List<LoginModel>()
+        public static List<User> Users = new List<User>()
         {
-            new LoginModel() { Username = "jason_admin",    Password = "test"},
-            new LoginModel() { Username = "elyse_seller", Password = "test" },
+            new User() { Username = "jason_admin",    Password = "test", Email="email@test.com"},
+            new User() { Username = "elyse_seller", Password = "test" },
         };
         
     }

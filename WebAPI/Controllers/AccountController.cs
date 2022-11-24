@@ -1,8 +1,13 @@
 ﻿using Frontend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using SocialNetwork.Classes.Account;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using WebAPI.Infrastructure.Services;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -40,12 +45,29 @@ namespace WebAPI.Controllers
             return NotFound("User not found");
         }
 
-        private string Generate(LoginModel loginModel)
+        private string Generate(User user)
         {
+            var u = user;
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email ),
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: null,
+                audience: null,
+                claims: claims,
+                expires: DateTime.Now.AddDays(10),
+                signingCredentials: credentials
+                );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private LoginModel Authenticate(LoginModel loginModel)
+        private User Authenticate(LoginModel loginModel)
         {
             var currentUser = Entities.UserConstants.Users.FirstOrDefault(o => o.Username.ToLower() ==
                  loginModel.Username.ToLower() && o.Password == loginModel.Password);
