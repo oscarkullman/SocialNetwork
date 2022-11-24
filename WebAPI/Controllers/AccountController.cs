@@ -24,16 +24,17 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<ActionResult> Login([FromBody]LoginModel loginModel)
         {
             // Logik för inloggning
             return Ok();
         }
         
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<ActionResult> Register([FromBody]RegisterModel registerModel)
         {
+            return Ok($"Successfully registered new user with username Test");
             var user = new IdentityUser { UserName = registerModel.Username, Email = registerModel.Email };
 
             // Kolla om användare redan finns
