@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WebAPI.Infrastructure.Services;
+using WebAPI.Infrastructure.Specification;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -69,6 +70,7 @@ namespace WebAPI.Controllers
 
         private User Authenticate(LoginModel loginModel)
         {
+            var users = await _userService.GetAllUsers(new UserSpecification);
             var currentUser = Entities.UserConstants.Users.FirstOrDefault(o => o.Username.ToLower() ==
                  loginModel.Username.ToLower() && o.Password == loginModel.Password);
             if (currentUser != null)
