@@ -9,14 +9,16 @@
 <h3>Login</h3>
 
 <EditForm Model="@LoginModel">
-    <label for="username">Username</label><br />
-    <input type="text" name="username" @bind-value="LoginModel.Username" />
-    <br />
-    <label for="password">Password</label><br />
-    <input type="text" name="password" @bind-value="LoginModel.Password" />
-    <br />
-    <br />
-    <button type="submit">Login</button>
+    <div class="content">
+        <label for="username">Username</label><br />
+        <input type="text" name="username" @bind-value="LoginModel.Username" />
+        <br />
+        <label for="password">Password</label><br />
+        <input type="text" name="password" @bind-value="LoginModel.Password" />
+        <br />
+        <br />
+        <button type="submit">Login</button>
+    </div>
 </EditForm>
 
 @code {

@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             _config = config;
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             var user = Authenticate(loginModel);
@@ -80,7 +80,7 @@ namespace WebAPI.Controllers
             return null;
         }
 
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
             var user = new IdentityUser { UserName = registerModel.Username, Email = registerModel.Email };

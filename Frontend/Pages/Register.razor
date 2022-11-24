@@ -1,6 +1,5 @@
 ﻿@page "/register"
 @using Frontend.Components
-@using Frontend.Models
 @using Frontend.Layout
 @layout Empty
 
@@ -8,7 +7,7 @@
 
 <h3>Register</h3>
 
-<EditForm Model="@RegisterModel">
+<EditForm Model="@RegisterModel" OnValidSubmit="@RegisterUser">
     <label for="first-name">First Name</label><br />
     <input type="text" name="first-name" @bind-value="RegisterModel.FirstName" />
     <br />
@@ -22,15 +21,12 @@
     <input type="text" name="email" @bind-value="RegisterModel.Email" />
     <br />
     <label for="password">Password</label><br />
-    <input type="text" name="password" @bind-value="RegisterModel.Password" />
+    <input type="password" name="password" @bind-value="RegisterModel.Password" />
     <br />
     <label for="repeat-password">Repeat Password</label><br />
-    <input type="text" name="repeat-password" @bind-value="RegisterModel.RepeatPassword" />
+    <input type="password" name="repeat-password" @bind-value="RegisterModel.RepeatPassword" />
     <br />
     <br />
     <button type="submit">Register</button>
 </EditForm>
 
-@code {
-    public RegisterModel RegisterModel { get; set; } = new();
-}
