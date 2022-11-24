@@ -12,6 +12,7 @@ namespace Frontend.Pages
         private async Task RegisterUser()
         {
             await _proxy.RegisterNewUser(RegisterModel);
+            RegisterModel = new();
         }
     }
 }

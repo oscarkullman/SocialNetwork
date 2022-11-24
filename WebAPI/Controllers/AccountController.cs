@@ -34,7 +34,6 @@ namespace WebAPI.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult> Register([FromBody]RegisterModel registerModel)
         {
-            return Ok($"Successfully registered new user with username Test");
             var user = new IdentityUser { UserName = registerModel.Username, Email = registerModel.Email };
 
             // Kolla om användare redan finns
