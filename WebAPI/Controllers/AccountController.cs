@@ -28,10 +28,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody]LoginModel loginModel)
+        public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             var user = Authenticate(loginModel);
-            if(user != null)
+            if (user != null)
             {
                 var token = Generate(user);
                 return Ok(token);
@@ -42,17 +42,22 @@ namespace WebAPI.Controllers
 
         private string Generate(LoginModel loginModel)
         {
-            var currentUser = Entities.UserConstants.Users.FirstOrDefault(o => o.Username.ToLower() ==
-                loginModel.Username.ToLower() && o.Password == loginModel.Password);
+
         }
 
         private LoginModel Authenticate(LoginModel loginModel)
         {
-            throw new NotImplementedException();
+            var currentUser = Entities.UserConstants.Users.FirstOrDefault(o => o.Username.ToLower() ==
+                 loginModel.Username.ToLower() && o.Password == loginModel.Password);
+            if (currentUser != null)
+            {
+                return currentUser;
+            }
+            return null;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody]RegisterModel registerModel)
+        public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
             var user = new IdentityUser { UserName = registerModel.Username, Email = registerModel.Email };
 
@@ -73,7 +78,7 @@ namespace WebAPI.Controllers
 
             var allErrors = newUser.Errors.ToList()
                 .Select(x => x.Description)
-                .Aggregate((errors, error) => 
+                .Aggregate((errors, error) =>
                     $"{(string.IsNullOrEmpty(errors) ? "" : $"{errors} ")}[{errors.Split("[").Length}]\"{error}\"");
 
             return BadRequest($"Error registering new user with username {user.UserName}. The request returned with the following errors: {allErrors}");
