@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetAllUsers")]
-        public async Task<ActionResult<ICollection<User>>> GetAllUsers([FromQuery]UserParams userParams)
+        public async Task<ActionResult<ICollection<User>>> GetAllUsers([FromQuery]UserParams? userParams)
         {
             var spec = new UserSpecification(userParams);
 

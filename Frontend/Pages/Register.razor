@@ -7,7 +7,7 @@
 <Navigation />
 
 <div class="content">
-    <EditForm Model="@RegisterModel">
+    <EditForm Model="@RegisterModel" OnValidSubmit="@RegisterUser">
         <h2 class="content__title">Register for the social network!</h2>
         <input class="content__input" type="text" name="first-name" placeholder="First Name" @bind-value="RegisterModel.FirstName" />
         <br /><br />
@@ -27,7 +27,3 @@
         <button class="content__button" type="submit">Register</button>
     </EditForm>
 </div>
-
-@code {
-    public RegisterModel RegisterModel { get; set; } = new();
-}
