@@ -8,6 +8,8 @@ namespace WebAPI.Specification
 
         Expression<Func<T, object>>? Sort { get; }
 
+        Expression<Func<T, object>>? SortDescending { get; }
+
         int? Skip { get; }
 
         int? Take { get; }

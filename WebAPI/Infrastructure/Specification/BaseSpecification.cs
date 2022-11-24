@@ -8,6 +8,8 @@ namespace WebAPI.Specification
 
         public Expression<Func<T, object>>? Sort { get; private set; }
 
+        public Expression<Func<T, object>>? SortDescending { get; private set; }
+
         public int? Skip { get; private set; }
 
         public int? Take { get; private set; }
@@ -22,6 +24,11 @@ namespace WebAPI.Specification
         public void SortMethod(Expression<Func<T, object>> expression)
         {
             Sort = expression;
+        }
+
+        public void SortDescendingMethod(Expression<Func<T, object>> expression)
+        {
+            SortDescending = expression;
         }
 
         public void ApplyPagination(int skip, int take)
