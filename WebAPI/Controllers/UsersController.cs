@@ -5,7 +5,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/users/")]
-    public class UsersController 
+    public class UsersController : Controller
     {
         private readonly IUserService _userService;
 
