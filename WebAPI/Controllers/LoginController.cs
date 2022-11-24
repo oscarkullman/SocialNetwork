@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -7,5 +8,15 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private IConfiguration _config;
+
+        public LoginController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login()
     }
 }

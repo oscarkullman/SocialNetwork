@@ -11,14 +11,6 @@ using WebAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-private readonly IConfiguration _config;
-
-public Program(IConfiguration config)
-{
-    _config = config;
-
-}
-
 // Add services to the container.
 
 builder.Services.AddControllers();
