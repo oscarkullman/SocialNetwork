@@ -1,4 +1,5 @@
 ﻿using Frontend.Models;
+using WebAPI.Infrastructure.Specification;
 using WebAPI.Models;
 
 namespace WebAPI.Infrastructure.Services
@@ -7,6 +8,8 @@ namespace WebAPI.Infrastructure.Services
     {
         Task AddNewUser(RegisterModel registerModel);
 
-        Task<User?> GetUser(string username);
+        Task<User?> GetUserByUsername(string username);
+
+        Task<ICollection<User>> GetAllUsers(UserSpecification spec);
     }
 }

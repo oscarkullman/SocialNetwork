@@ -43,6 +43,16 @@ namespace WebAPI.Repositories
                 query = query.Where(spec.Criteria);
             }
 
+            if (spec.Sort != null)
+            {
+                query = query.OrderBy(spec.Sort);
+            }
+
+            if (spec.SortDescending != null)
+            {
+                query = query.OrderByDescending(spec.SortDescending);
+            }
+
             if (spec.Skip.HasValue && spec.Take.HasValue)
             {
                 query = query.Skip(spec.Skip.Value).Take(spec.Take.Value);
