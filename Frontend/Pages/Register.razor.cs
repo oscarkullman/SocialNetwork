@@ -9,10 +9,16 @@ namespace Frontend.Pages
 
         public RegisterModel RegisterModel { get; set; } = new();
 
+        public bool IsLoading { get; set; }
+
         private async Task RegisterUser()
         {
+            IsLoading = !IsLoading;
+
             await _proxy.RegisterNewUser(RegisterModel);
             RegisterModel = new();
+
+            IsLoading = false;
         }
     }
 }
