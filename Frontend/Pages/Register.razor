@@ -7,26 +7,31 @@
 
 <div class="content">
     <EditForm Model="@RegisterModel" OnValidSubmit="@RegisterUser">
-        <h2 class="content__title">Register for the social network!</h2><br />
-        <label for="first-name">First Name</label>
-        <input class="content__input" type="text" name="first-name" placeholder="First Name" @bind-value="RegisterModel.FirstName" />
-        <br /><br />
-        <label for="last-name">Last Name</label>
-        <input class="content__input" type="text" name="last-name" placeholder="Last Name" @bind-value="RegisterModel.LastName" />
-        <br /><br />
-        <label for="username">Username</label>
-        <input class ="content__input" type="text" name="username" placeholder="Username" @bind-value="RegisterModel.Username" />
-        <br /><br />
-        <label for="email">Email</label>
-        <input class="content__input" type="text" name="email" placeholder="Email" @bind-value="RegisterModel.Email" />
-        <br /><br />
-        <label for="password">Username</label>
-        <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="RegisterModel.Password" />
-        <br /><br />
-        <label for="repeat-password">Repeat Password</label>
-        <input class="content__input" type="password" name="repeat-password" placeholder="Repeat password" @bind-value="RegisterModel.RepeatPassword" />  
-        <br /><br /><br />
-        <button class="content__button" type="submit">Register</button>
+        
+        @if (!IsLoading)
+        {
+            <h2 class="content__title">Register for the social network!</h2><br />
+            <input class="content__input" type="text" name="first-name" placeholder="First Name" @bind-value="RegisterModel.FirstName" required />
+            <br /><br />
+            <input class="content__input" type="text" name="last-name" placeholder="Last Name" @bind-value="RegisterModel.LastName" required />
+            <br /><br />
+            <input class ="content__input" type="text" name="username" placeholder="Username" @bind-value="RegisterModel.Username" required />
+            <br /><br />
+            <input class="content__input" type="text" name="email" placeholder="Email" @bind-value="RegisterModel.Email" required />
+            <br /><br />
+            <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="RegisterModel.Password" required />
+            <br /><br />
+            <input class="content__input" type="password" name="repeat-password" placeholder="Repeat password" @bind-value="RegisterModel.RepeatPassword" required />  
+            <br /><br /><br />
+        }
+
+        @if (IsLoading)
+        {
+            <h2 class="content__title">Setting up account!</h2><br />
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <br /><br />
+        }
+        <button class="content__button" type="submit" disabled="@IsLoading">Register</button>
         <br /><br />
         <a class="content__link" href="login">Already have an account? Log in here!</a>
     </EditForm>
