@@ -9,10 +9,12 @@
 <div class="content">
     <EditForm Model="@LoginModel">
         <h2 class="content__title">Welcome to the social network!</h2><br/>
+        <label for="username">Username</label>
         <input class="content__input" type="text" name="username" placeholder="Username" @bind-value="LoginModel.Username" />
         <br/><br />
-        <input class="content__input" type="text" name="password" placeholder="Password" @bind-value="LoginModel.Password" />
-        <br /><br />
+        <label for="password">Password</label>
+        <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="LoginModel.Password" />
+        <br /><br /><br />
         <button class="content__button" type="submit">Log In</button>
         <br /><br />
         <a class="content__link" href="register">Don't have an account? Register here!</a>
