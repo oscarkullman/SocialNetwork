@@ -10,18 +10,12 @@ namespace WebAPI.Controllers
     [Route("api/account/")]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _siginManager;
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
         public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> siginManager,
-            IUserService userService)
+            IAccountService accountService)
         {
-            _userManager = userManager;
-            _siginManager = siginManager;
-            _userService = userService;
+            _accountService = accountService;
         }
 
         [HttpPost("Login")]
@@ -34,29 +28,25 @@ namespace WebAPI.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult> Register([FromBody]RegisterModel registerModel)
         {
-            var user = new IdentityUser { UserName = registerModel.Username, Email = registerModel.Email };
+            var result = await _accountService.RegisterNewUser(registerModel);
 
-            // Kolla om användare redan finns
-            if (await _userService.GetUserByUsername(user.UserName) != null)
+            if (result.IsSuccessful)
             {
-                return BadRequest($"A user with the username {user.UserName} already exists in the database.");
+                return Ok(result.Message);
             }
 
-            var newUser = await _userManager.CreateAsync(user, registerModel.Password);
+            // Om registreringen nmisslyckadess, returnera en sträng med alla felmeddelanden
+            var allErrors = "The request returned with the following errors:";
 
-            if (newUser.Succeeded)
+            if (result.Errors != null)
             {
-                await _userService.AddNewUser(registerModel);
-                await _siginManager.SignInAsync(user, isPersistent: false);
-                return Ok($"Successfully registered new user with username {user.UserName}");
+                foreach (var error in result.Errors.Select((x, index) => new { Index = index, Message = x }))
+                {
+                    allErrors = $"{allErrors} [{error.Index + 1}] \"{error.Message}\"";
+                }
             }
 
-            var allErrors = newUser.Errors.ToList()
-                .Select(x => x.Description)
-                .Aggregate((errors, error) => 
-                    $"{(string.IsNullOrEmpty(errors) ? "" : $"{errors} ")}[{errors.Split("[").Length}]\"{error}\"");
-
-            return BadRequest($"Error registering new user with username {user.UserName}. The request returned with the following errors: {allErrors}");
+            return BadRequest(allErrors);
         }
     }
 }
