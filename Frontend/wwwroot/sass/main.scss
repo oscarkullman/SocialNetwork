@@ -1,5 +1,9 @@
 ﻿@import '_navigation.scss';
 @import '_login.scss';
+@import '_register.scss';
+@import '_loader.scss';
 
 body {
+    background-color: #f0f2f5;
+    font-family: 'Trebuchet MS', sans-serif;
 }
