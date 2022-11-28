@@ -1,6 +1,8 @@
 ﻿using Frontend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SocialNetwork.Classes;
 using SocialNetwork.Classes.Account;
 using WebAPI.Infrastructure.Services;
 
@@ -10,53 +12,55 @@ namespace WebAPI.Controllers
     [Route("api/account/")]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _siginManager;
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
         public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> siginManager,
-            IUserService userService)
+            IAccountService accountService)
         {
-            _userManager = userManager;
-            _siginManager = siginManager;
-            _userService = userService;
+            _accountService = accountService;
         }
 
-        [HttpPost("Login")]
-        public async Task<ActionResult> Login([FromBody]LoginModel loginModel)
-        {
-            // Logik för inloggning
-            return Ok();
-        }
-        
         [HttpPost("Register")]
-        public async Task<ActionResult> Register([FromBody]RegisterModel registerModel)
+        public async Task<ActionResult<StatusCodeHandler>> Register([FromBody] RegisterModel registerModel)
         {
-            var user = new IdentityUser { UserName = registerModel.Username, Email = registerModel.Email };
+            var result = await _accountService.Register(registerModel);
 
-            // Kolla om användare redan finns
-            if (await _userService.GetUserByUsername(user.UserName) != null)
+            if (result.IsSuccessful)
             {
-                return BadRequest($"A user with the username {user.UserName} already exists in the database.");
+                return Ok(result);
             }
 
-            var newUser = await _userManager.CreateAsync(user, registerModel.Password);
+            return BadRequest(result);
+        }
 
-            if (newUser.Succeeded)
-            {
-                await _userService.AddNewUser(registerModel);
-                await _siginManager.SignInAsync(user, isPersistent: false);
-                return Ok($"Successfully registered new user with username {user.UserName}");
-            }
+        [HttpPost("LogIn")]
+        public async Task<ActionResult<StatusCodeHandler>> Login([FromBody]LogInModel loginModel)
+        {
+            var result = await _accountService.LogIn(loginModel);
 
-            var allErrors = newUser.Errors.ToList()
-                .Select(x => x.Description)
-                .Aggregate((errors, error) => 
-                    $"{(string.IsNullOrEmpty(errors) ? "" : $"{errors} ")}[{errors.Split("[").Length}]\"{error}\"");
+            if (!result.IsSuccessful) return BadRequest(result);
 
-            return BadRequest($"Error registering new user with username {user.UserName}. The request returned with the following errors: {allErrors}");
+            return Ok(result);
+        }
+
+        [HttpGet("LogOut")]
+        public async Task<ActionResult<StatusCodeHandler>> LogOut()
+        {
+            var name = User.Identity?.Name;
+
+            if (name == null)
+                return BadRequest(new StatusCodeHandler(400, "User already signed out."));
+
+            var result = await _accountService.LogOut(name);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("CheckAuthorization")]
+        public async Task<ActionResult<StatusCodeHandler>> CheckAuthorization()
+        {
+            return Ok(new StatusCodeHandler(200, "You are authorized."));
         }
     }
 }

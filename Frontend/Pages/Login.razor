@@ -7,11 +7,11 @@
 <Navigation />
 
 <div class="content">
-    <EditForm Model="@LoginModel">
+    <EditForm Model="@LogInModel">
         <h2 class="content__title">Welcome to the social network!</h2><br/>
-        <input class="content__input" type="text" name="username" placeholder="Username" @bind-value="LoginModel.Username" />
+        <input class="content__input" type="text" name="username" placeholder="Username" @bind-value="LogInModel.Username" />
         <br/><br />
-        <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="LoginModel.Password" />
+        <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="LogInModel.Password" />
         <br /><br /><br />
         <button class="content__button" type="submit">Log In</button>
         <br /><br />
@@ -20,5 +20,5 @@
 </div>
 
 @code {
-    public LoginModel LoginModel { get; set; } = new();
+    public LogInModel LogInModel { get; set; } = new();
 }
