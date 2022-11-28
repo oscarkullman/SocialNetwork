@@ -306,6 +306,7 @@
 }
 .error-text {
   color: #7d0000;
+  margin-bottom: -35px;
 }
 
 .hide-error {
