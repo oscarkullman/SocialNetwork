@@ -6,4 +6,21 @@
 <PageTitle>Social Network</PageTitle>
 <Navigation />
 
+@if(_isAuthorized.IsSuccessful){
+	<Wall />
+}
+@if(!_isAuthorized.IsSuccessful){
+	<div>
+		<div>
 
+		</div>
+		<div>
+			<div>
+
+			</div>
+			<div>
+
+			</div>
+		</div>
+	</div>
+}
