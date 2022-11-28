@@ -89,7 +89,7 @@
   padding: 10px 0;
   font-size: 22px;
   border: 2px solid #1877f2;
-  border-bottom-right-radius: 6px;
+  border-radius: 6px;
   margin: 12px;
   background-color: #1877f2;
   text-align: center;
@@ -304,6 +304,14 @@
     transform: rotate(360deg);
   }
 }
+.error-text {
+  color: #7d0000;
+}
+
+.hide-error {
+  display: none;
+}
+
 body {
   background-color: #f0f2f5;
   font-family: "Trebuchet MS", sans-serif;
