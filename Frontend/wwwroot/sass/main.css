@@ -304,6 +304,14 @@
     transform: rotate(360deg);
   }
 }
+.error-text {
+  color: #7d0000;
+}
+
+.hide-error {
+  display: none;
+}
+
 body {
   background-color: #f0f2f5;
   font-family: "Trebuchet MS", sans-serif;
