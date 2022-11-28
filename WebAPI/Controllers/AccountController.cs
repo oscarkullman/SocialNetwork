@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
         [HttpGet("CheckAuthorization")]
         public async Task<ActionResult<StatusCodeHandler>> CheckAuthorization()
         {
-            return Ok(new StatusCodeHandler(200, "You are authorized."));
+            return Ok(new StatusCodeHandler(200, "You are authorized."));            
         }
     }
 }

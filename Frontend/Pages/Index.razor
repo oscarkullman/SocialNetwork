@@ -3,7 +3,40 @@
 @using Frontend.Layout
 @layout Empty
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <PageTitle>Social Network</PageTitle>
 <Navigation />
 
+@if(_isAuthorized.IsSuccessful){
+	<Wall />
+}
+@if(!_isAuthorized.IsSuccessful){
+	
+	<div class="homepage">
 
+		<div class="homepage__big">
+			
+			<h1>SOCIAL NETWORK</h1>
+			<h2>Av användare, för användare!</h2>
+		</div>
+		<div class="homepage__small">
+			<div class="homepage__small__one">
+				<div class="homepage__small__one__text">
+					<h3>Säkert och simpelt</h3>
+					<p>Social Network har i åtanke att hålla hemsidan fri från hackare, bedragare och bottar. Vi vill höja säkerheten och bekvämligheten på sociala medier för att alla ska få en trivsam upplevelse.</p>
+					<p>Med en simplistisk design är vårat mål att Social Network ska vara det absolut smidigaste sociala nätverket där alla, från nybörjare till erfarna, trivs med enkelheten vi kan erbjuda.</p>
+				</div>
+			</div>
+			<div class="homepage__small__two">
+				<div class="homepage__small__two__text">
+					<h3><a href="Register">Registrera dig idag!</a></h3>
+					<p>Gå med i jordens bästa sociala nätverk och anslut med dina vänner redan idag.</p>
+				</div>
+				<img src="./images/networking.png"><img />
+
+			</div>
+		</div>
+
+	</div>
+
+}

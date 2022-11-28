@@ -1,6 +1,7 @@
 ﻿.nav {
-    height: 50px;
+    height: 4vh;
     background: #ffffff;
+    margin-bottom: 2vh;
 
     &__logo {
         height: 100%;
@@ -12,13 +13,12 @@
 
     &__toggle {
         position: relative;
-        margin-top: 12.5px;
+        margin-top: 13px;
         left: 20px;
         -webkit-user-select: none;
         user-select: none;
         width: 0%;
         float: left;
-        background: red;
 
         & a {
             text-decoration: none;
@@ -117,3 +117,4 @@
         }
     }
 }
+

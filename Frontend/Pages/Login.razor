@@ -9,12 +9,12 @@
 
 <div class="content">
     <EditForm Model="@LogInModel" OnValidSubmit="@LoginUser">
-        <h2 class="content__title">Welcome to the social network!</h2><br/>
+        <h2 class="content__title">Welcome to Social Network!</h2><br/>
         <input class="content__input" type="text" name="username" placeholder="Username" @bind-value="LogInModel.Username" />
         <br/><br />
         <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="LogInModel.Password" />
         <br /><br /><br />
-        <button class="content__button" type="submit">Log In</button>
+            <button class="content__button" type="submit" onclick="window.location.href='/'">Log In</button>
         <br /><br />
         <a class="content__link" href="register">Don't have an account? Register here!</a>
     </EditForm>
