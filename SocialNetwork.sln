@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frontend", "Frontend\Fronte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork.Classes", "SocialNetwork.Classes\SocialNetwork.Classes.csproj", "{75A9BAC2-E514-46B5-8C12-4B24B2C911E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.WebApi.Proxy", "SocialNetwork.WebApi.Proxy\SocialNetwork.WebApi.Proxy.csproj", "{7310CB8A-D7EA-45DE-B356-EA284AD8678A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork.WebApi.Proxy", "SocialNetwork.WebApi.Proxy\SocialNetwork.WebApi.Proxy.csproj", "{7310CB8A-D7EA-45DE-B356-EA284AD8678A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
