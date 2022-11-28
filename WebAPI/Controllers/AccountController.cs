@@ -1,6 +1,8 @@
 ﻿using Frontend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SocialNetwork.Classes;
 using SocialNetwork.Classes.Account;
 using WebAPI.Infrastructure.Services;
 
@@ -18,35 +20,47 @@ namespace WebAPI.Controllers
             _accountService = accountService;
         }
 
-        [HttpPost("Login")]
-        public async Task<ActionResult> Login([FromBody]LoginModel loginModel)
-        {
-            // Logik för inloggning
-            return Ok();
-        }
-        
         [HttpPost("Register")]
-        public async Task<ActionResult> Register([FromBody]RegisterModel registerModel)
+        public async Task<ActionResult<StatusCodeHandler>> Register([FromBody] RegisterModel registerModel)
         {
-            var result = await _accountService.RegisterNewUser(registerModel);
+            var result = await _accountService.Register(registerModel);
 
             if (result.IsSuccessful)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
 
-            // Om registreringen nmisslyckadess, returnera en sträng med alla felmeddelanden
-            var allErrors = "The request returned with the following errors:";
+            return BadRequest(result);
+        }
 
-            if (result.Errors != null)
-            {
-                foreach (var error in result.Errors.Select((x, index) => new { Index = index, Message = x }))
-                {
-                    allErrors = $"{allErrors} [{error.Index + 1}] \"{error.Message}\"";
-                }
-            }
+        [HttpPost("LogIn")]
+        public async Task<ActionResult<StatusCodeHandler>> Login([FromBody]LogInModel loginModel)
+        {
+            var result = await _accountService.LogIn(loginModel);
 
-            return BadRequest(allErrors);
+            if (!result.IsSuccessful) return BadRequest(result);
+
+            return Ok(result);
+        }
+
+        [HttpGet("LogOut")]
+        public async Task<ActionResult<StatusCodeHandler>> LogOut()
+        {
+            var name = User.Identity?.Name;
+
+            if (name == null)
+                return BadRequest(new StatusCodeHandler(400, "User already signed out."));
+
+            var result = await _accountService.LogOut(name);
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("CheckAuthorization")]
+        public async Task<ActionResult<StatusCodeHandler>> CheckAuthorization()
+        {
+            return Ok(new StatusCodeHandler(200, "You are authorized."));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Frontend.Models;
 using Microsoft.AspNetCore.Identity;
 using SocialNetwork.Classes;
+using SocialNetwork.Classes.Account;
 
 namespace WebAPI.Infrastructure.Services
 {
@@ -19,8 +20,8 @@ namespace WebAPI.Infrastructure.Services
             _signinManager = signinManager;
             _userService = userService;
         }
-
-        public async Task<StatusCodeHandler> RegisterNewUser(RegisterModel registerModel)
+        
+        public async Task<StatusCodeHandler> Register(RegisterModel registerModel)
         {
             var user = new IdentityUser { UserName = registerModel.Username, Email = registerModel.Email };
 
@@ -29,7 +30,7 @@ namespace WebAPI.Infrastructure.Services
             {
                 return new StatusCodeHandler
                 {
-                    Code = 500,
+                    Code = 409,
                     Errors = new List<string>
                     {
                         $"A user with the username {registerModel.Username} already exists in the database."
@@ -54,6 +55,32 @@ namespace WebAPI.Infrastructure.Services
                     "An error occured while trying to register the new user."
                 }
             };
+        }
+
+        public async Task<StatusCodeHandler> LogIn(LogInModel logInModel)
+        {
+            var user = await _userManager.FindByNameAsync(logInModel.Username);
+
+            if (user != null)
+            {
+                var checkPassword = await _userManager.CheckPasswordAsync(user, logInModel.Password);
+
+                if (checkPassword)
+                {
+                    await _signinManager.SignInAsync(user, isPersistent: false);
+
+                    return new StatusCodeHandler(200, $"Successfully signed in as {logInModel.Username}");
+                }
+            }
+
+            return new StatusCodeHandler(401, "Login attempt failed.");
+        }
+
+        public async Task<StatusCodeHandler> LogOut(string? username = null)
+        {
+            await _signinManager.SignOutAsync();
+
+            return new StatusCodeHandler(200, $"Signed out user {username}.");
         }
     }
 }
