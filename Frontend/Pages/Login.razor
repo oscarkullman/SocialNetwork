@@ -3,11 +3,12 @@
 @using Frontend.Components
 @using Frontend.Layout
 @layout Empty
+@using SocialNetwork.WebApi.Proxy;
 
 <Navigation />
 
 <div class="content">
-    <EditForm Model="@LogInModel">
+    <EditForm Model="@LogInModel" OnValidSubmit="@LoginUser">
         <h2 class="content__title">Welcome to the social network!</h2><br/>
         <input class="content__input" type="text" name="username" placeholder="Username" @bind-value="LogInModel.Username" />
         <br/><br />
@@ -20,5 +21,5 @@
 </div>
 
 @code {
-    public LogInModel LogInModel { get; set; } = new();
+    
 }

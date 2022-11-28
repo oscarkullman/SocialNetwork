@@ -62,7 +62,7 @@ namespace WebAPI.Infrastructure.Services
             var user = await _userManager.FindByNameAsync(logInModel.Username);
 
             if (user != null)
-            {
+            {   
                 var checkPassword = await _userManager.CheckPasswordAsync(user, logInModel.Password);
 
                 if (checkPassword)
