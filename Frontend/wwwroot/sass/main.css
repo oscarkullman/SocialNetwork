@@ -1,6 +1,7 @@
 ﻿.nav {
-  height: 50px;
+  height: 4vh;
   background: #ffffff;
+  margin-bottom: 2vh;
 }
 .nav__logo {
   height: 100%;
@@ -11,13 +12,12 @@
 }
 .nav__toggle {
   position: relative;
-  margin-top: 12.5px;
+  margin-top: 13px;
   left: 20px;
   -webkit-user-select: none;
   user-select: none;
   width: 0%;
   float: left;
-  background: red;
 }
 .nav__toggle a {
   text-decoration: none;
@@ -318,6 +318,81 @@
 }
 .error__text__hide {
   display: none;
+}
+
+.homepage {
+  width: 98vw;
+  height: 92vh;
+  background: #f0f2f5;
+  margin-left: 1vw;
+  border-radius: 1vh;
+  padding: 2vh;
+}
+.homepage__big {
+  width: 96vw;
+  height: 40vh;
+  background: #ffffff;
+  border-radius: 1vh;
+  padding-top: 15vh;
+  text-align: center;
+}
+.homepage__big h1 {
+  color: #1877f2;
+  font-size: 8vh;
+}
+.homepage__big p {
+  color: #1877f2;
+  font-size: 4vh;
+}
+.homepage__small {
+  display: block;
+  padding-top: 2vh;
+}
+.homepage__small__one {
+  display: inline-block;
+  height: 46vh;
+  width: 47vw;
+  background: #ffffff;
+  float: left;
+  border-radius: 1vh;
+  padding: 3vh;
+  text-align: center;
+}
+.homepage__small__one__text h3 {
+  color: #1877f2;
+  font-size: 3vh;
+}
+.homepage__small__one__text p {
+  font-size: 1.5vh;
+}
+.homepage__small__two {
+  display: inline-block;
+  height: 46vh;
+  width: 47vw;
+  background: #ffffff;
+  float: right;
+  border-radius: 1vh;
+  padding: 3vh;
+  text-align: center;
+}
+.homepage__small__two__text {
+  display: block;
+}
+.homepage__small__two__text h3 {
+  color: #1877f2;
+  font-size: 3vh;
+}
+.homepage__small__two__text h3 a {
+  text-decoration: none;
+}
+.homepage__small__two__text p {
+  font-size: 1.5vh;
+}
+.homepage__small__two img {
+  align-content: center;
+  height: 70%;
+  border-radius: 2vh;
+  max-height: 100%;
 }
 
 body {

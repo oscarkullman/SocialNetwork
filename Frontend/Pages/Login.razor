@@ -15,7 +15,7 @@
         <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="LogInModel.Password" />
         <p class="@(!LogInValidationSuccessful ? "error__text" : "error__text__hide")">Invalid username or password.</p>
         <br /><br /><br />
-        <button class="content__button" type="submit">Log In</button>
+            <button class="content__button" type="submit" onclick="window.location.href='/'">Log In</button>
         <br /><br />
         <a class="content__link" href="register">Don't have an account? Register here!</a>
     </EditForm>
