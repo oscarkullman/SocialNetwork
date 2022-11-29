@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SocialNetwork.Classes;
 using SocialNetwork.Classes.Account;
+using SocialNetwork.Classes.Post;
 using System.Text;
 
 namespace SocialNetwork.WebApi.Proxy
@@ -59,7 +60,7 @@ namespace SocialNetwork.WebApi.Proxy
 
         #region Post
 
-        public async Task<StatusCodeHandler> CreateNewPost(string post)
+        public async Task<StatusCodeHandler> CreateNewPost(PostModel post)
         {
             var response = new HttpResponseMessage();
             response.Content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
@@ -77,19 +78,19 @@ namespace SocialNetwork.WebApi.Proxy
             return new StatusCodeHandler(400, "Something went wrong when posting.");
         }
 
-        public async Task<ICollection<string>> GetPostsByUsername(string username)
+        public async Task<ICollection<PostDto>> GetPostsByUsername(string username)
         {
             var result = await _client.GetAsync($"api/post/GetPostsByUsername/{username}");
 
             if (result.IsSuccessStatusCode)
             {
                 var content = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<List<string>>(content);
+                var data = JsonConvert.DeserializeObject<List<PostDto>>(content);
 
                 return data;
             }
 
-            return new List<string>();
+            return new List<PostDto>();
         }
 
         #endregion
