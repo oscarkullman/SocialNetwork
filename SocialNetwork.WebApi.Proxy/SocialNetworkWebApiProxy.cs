@@ -56,5 +56,42 @@ namespace SocialNetwork.WebApi.Proxy
         }
 
         #endregion
+
+        #region Post
+
+        public async Task<StatusCodeHandler> CreateNewPost(string post)
+        {
+            var response = new HttpResponseMessage();
+            response.Content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
+
+            var result = await _client.PostAsync("api/post/CreateNewPost", response.Content);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<StatusCodeHandler>(content);
+
+                return data;
+            }
+
+            return new StatusCodeHandler(400, "Something went wrong when posting.");
+        }
+
+        public async Task<ICollection<string>> GetPostsByUsername(string username)
+        {
+            var result = await _client.GetAsync($"api/post/GetPostsByUsername/{username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<string>>(content);
+
+                return data;
+            }
+
+            return new List<string>();
+        }
+
+        #endregion
     }
 }
