@@ -22,6 +22,15 @@
         outline-color: #1877f2;
     }
 
+    &__input__error {
+        border: 1px solid #dddfe2;
+        border-radius: 6px;
+        font-size: 17px;
+        width: 100%;
+        padding: 6px;
+        outline-color: rgb(217, 0, 0);
+    }
+
     &__link {
         text-decoration: none;
         color: #1877f2;

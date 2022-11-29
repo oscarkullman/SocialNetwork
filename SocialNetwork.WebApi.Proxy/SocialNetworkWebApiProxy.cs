@@ -24,10 +24,15 @@ namespace SocialNetwork.WebApi.Proxy
 
             var result = await _client.PostAsync("api/account/LogIn", request.Content);
 
-            var data = await result.Content.ReadAsStringAsync();
-            var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
+            if (result.IsSuccessStatusCode)
+            {
+                var data = await result.Content.ReadAsStringAsync();
+                var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
 
-            return content ?? new StatusCodeHandler(400, "An error occured while trying to log in.");
+                return content;
+            }
+
+            return new StatusCodeHandler(400, "An error occured while trying to log in.");
         }
             
         public async Task<StatusCodeHandler> RegisterNewUser(RegisterModel registerModel)
@@ -37,35 +42,48 @@ namespace SocialNetwork.WebApi.Proxy
 
             var result = await _client.PostAsync("api/account/Register", request.Content);
 
-            var data = await result.Content.ReadAsStringAsync();
-            var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
+            try
+            {
+                var data = await result.Content.ReadAsStringAsync();
+                var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
 
-            return content ?? new StatusCodeHandler(400, "An error occured while trying to register the user.");
+                return content;
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeHandler(500, e.Message);
+            }
         }
 
         public async Task<StatusCodeHandler> LogOutUser()
         {
             var result = await _client.GetAsync("api/account/LogOut");
 
-            var data = await result.Content.ReadAsStringAsync();
-            var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
+            if (result.IsSuccessStatusCode)
+            {
+                var data = await result.Content.ReadAsStringAsync();
+                var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
 
-            return content ?? new StatusCodeHandler(400, "An error occured while trying to log out the user.");
+                return content;
+            }
+
+            return new StatusCodeHandler(400, "An error occured while trying to log out the user.");
         }
 
         public async Task<StatusCodeHandler> CheckAuthorization()
         {
             var result = await _client.GetAsync("api/account/CheckAuthorization");
 
-            var data = await result.Content.ReadAsStringAsync();
-            var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
+            if (result.IsSuccessStatusCode)
+            {
+                var data = await result.Content.ReadAsStringAsync();
+                var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
 
-            return content ?? new StatusCodeHandler(400, "An error occured while checking authorization.");
+                return content;
+            }
+
+            return new StatusCodeHandler(400, "An error occured while checking authorization.");
         }
-
-        #endregion
-
-        #region User
 
         #endregion
     }

@@ -1,9 +1,9 @@
-﻿namespace WebAPI.Models
-{
-    public class User
-    {
-        public int Id { get; set; }
+﻿using WebAPI.Entities;
 
+namespace WebAPI.Models
+{
+    public class User : BaseEntity
+    {
         public string? Username { get; set; }
 
         public string? FirstName { get; set; }

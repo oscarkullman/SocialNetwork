@@ -1,7 +1,8 @@
-﻿.error-text {
-    color: rgb(125, 0, 0);
-}
+﻿.error__text {
+    color: rgb(217, 0, 0);
+    margin-bottom: -38px;
 
-.hide-error {
-    display: none;
+    &__hide {
+        display: none;
+    }
 }
