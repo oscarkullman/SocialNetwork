@@ -13,11 +13,21 @@
         <input class="content__input" type="text" name="username" placeholder="Username" @bind-value="LogInModel.Username" />
         <br/><br />
         <input class="content__input" type="password" name="password" placeholder="Password" @bind-value="LogInModel.Password" />
-        <p class="@(!LogInValidationSuccessful ? "error__text" : "error__text__hide")">Invalid username or password.</p>
+        <p class="@(!LogInValidationSuccessful ? "error__text" : "error__text__hide")">- Invalid username or password.</p>
         <br /><br /><br />
+        
+        @if (!IsLoading)
+        {
             <button class="content__button" type="submit">Log In</button>
-        <br /><br />
-        <a class="content__link" href="register">Don't have an account? Register here!</a>
+            <br /><br />
+            <a class="content__link" href="register">Don't have an account? Register here!</a>
+        }
+        else
+        {
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <br />
+        }
+
     </EditForm>
 </div>
 
