@@ -13,6 +13,10 @@
 *.user
 *.sln.docstates
 
+# Sqlite stuff
+*.db-shm
+*.db-wal
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
