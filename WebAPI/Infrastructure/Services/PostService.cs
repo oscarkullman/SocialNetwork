@@ -22,9 +22,9 @@ namespace WebAPI.Infrastructure.Services
             return new StatusCodeHandler(200, $"Successfully posted");
         }
 
-        public async Task<ICollection<Post>> GetPostsByUsername(string username)
+        public async Task<Post?> GetPostsByUsername(string username)
         {
-            return new List<Post>();
+            return await _postRepository.QueryFirst(x => x.Username.ToLower() == username.ToLower());
         }
     }
 }

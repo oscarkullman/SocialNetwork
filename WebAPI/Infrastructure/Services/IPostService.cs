@@ -8,6 +8,6 @@ namespace WebAPI.Infrastructure.Services
     {
         Task<StatusCodeHandler> CreateNewPost(PostModel postModel);
 
-        Task<ICollection<Post>> GetPostsByUsername(string username);
+        Task<Post> GetPostsByUsername(string username);
     }
 }

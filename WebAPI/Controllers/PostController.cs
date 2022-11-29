@@ -28,7 +28,8 @@ namespace WebAPI.Controllers
         [HttpGet("GetPostsByUsername/{username}")]
         public async Task<ActionResult<ICollection<Post>>> GetPostsByUsername(string username)
         {
-            return Ok(new List<Post>());
+            var posts = await _postService.GetPostsByUsername(username);
+            return Ok(posts);
         }
     }
 }
