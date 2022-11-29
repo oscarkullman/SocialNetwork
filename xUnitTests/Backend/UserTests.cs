@@ -1,20 +1,22 @@
-using Frontend.Models;
-using Microsoft.AspNetCore.Identity;
-using Moq;
-using WebAPI.Controllers;
+﻿using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using WebAPI.Infrastructure.Repositories;
 using WebAPI.Infrastructure.Services;
 using WebAPI.Infrastructure.Specification;
 using WebAPI.Infrastructure.Specification.Params;
 using WebAPI.Models;
 
-namespace xUnitTests
+namespace xUnitTests.Backend
 {
-    public class TestEndPoint
+    public class UserTests
     {
         private List<User> _users; 
         
-        public TestEndPoint()
+        public UserTests()
         {
             _users = new List<User>
             {
@@ -48,8 +50,6 @@ namespace xUnitTests
             };
         }
 
-        #region User
-
         [Fact]
         public void ShouldGetAllUsers()
         {
@@ -81,8 +81,8 @@ namespace xUnitTests
             var specification = new UserSpecification(uParams);
 
             var userRepository = new Mock<IUserRepository>();
-            userRepository.Setup(x => x.QueryFirst(x => x.Username == username).Result)
-                .Returns(_users.FirstOrDefault(x => x.Username == username));
+            userRepository.Setup(x => x.QueryFirst(x => x.Username.ToLower() == username.ToLower()).Result)
+                .Returns(_users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower()));
 
             // Act
             var userService = new UserService(userRepository.Object);
@@ -92,7 +92,5 @@ namespace xUnitTests
             // Assert
             Assert.True(getUserByUsername?.Username == username);
         }
-
-        #endregion
     }
 }
