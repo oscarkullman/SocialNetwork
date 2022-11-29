@@ -21,7 +21,7 @@ namespace Frontend.Components
         private async Task LogOut()
         {
             await JSRuntime.InvokeVoidAsync("logOut");
-            NavigationManager.NavigateTo("/", true);
+            NavigationManager.NavigateTo("/login", true);
         }
     }
 }
