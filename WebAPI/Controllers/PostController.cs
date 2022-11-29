@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Classes;
+using SocialNetwork.Classes.Post;
 using WebAPI.Entities;
 using WebAPI.Infrastructure.Services;
 
@@ -18,8 +19,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("CreateNewPost")]
-        public async Task<ActionResult<StatusCodeHandler>> CreateNewPost([FromBody]Post post)
+        public async Task<ActionResult<StatusCodeHandler>> CreateNewPost([FromBody]PostModel postModel)
         {
+            _postService.CreateNewPost(postModel);
             return Ok(new StatusCodeHandler(200, "Post was created successfully."));
         }
 
