@@ -3,6 +3,8 @@ using SocialNetwork.Classes;
 using SocialNetwork.Classes.Post;
 using WebAPI.Entities;
 using WebAPI.Infrastructure.Services;
+using WebAPI.Infrastructure.Specification;
+using WebAPI.Infrastructure.Specification.Params;
 
 namespace WebAPI.Controllers
 {
@@ -25,10 +27,11 @@ namespace WebAPI.Controllers
             return Ok(new StatusCodeHandler(200, "Post was created successfully."));
         }
 
-        [HttpGet("GetPostsByUsername/{username}")]
-        public async Task<ActionResult<ICollection<Post>>> GetPostsByUsername(string username)
+        [HttpGet("GetPostsByUsername")]
+        public async Task<ActionResult<ICollection<Post>>> GetPostsByUsername([FromQuery]PostParams postParams)
         {
-            var posts = await _postService.GetPostsByUsername(username);
+            var postSpec = new PostSpecification(postParams);
+            var posts = await _postService.GetPostsByUsername(postSpec);
             return Ok(posts);
         }
     }

@@ -3,6 +3,7 @@ using SocialNetwork.Classes;
 using SocialNetwork.Classes.Post;
 using WebAPI.Entities;
 using WebAPI.Infrastructure.Repositories;
+using WebAPI.Infrastructure.Specification;
 using WebAPI.Models;
 
 namespace WebAPI.Infrastructure.Services
@@ -22,9 +23,9 @@ namespace WebAPI.Infrastructure.Services
             return new StatusCodeHandler(200, $"Successfully posted");
         }
 
-        public async Task<Post?> GetPostsByUsername(string username)
+        public async Task<ICollection<Post?>> GetPostsByUsername(PostSpecification spec)
         {
-            return await _postRepository.QueryFirst(x => x.Username.ToLower() == username.ToLower());
+            return await _postRepository.QueryWithSpec(spec);
         }
     }
 }
