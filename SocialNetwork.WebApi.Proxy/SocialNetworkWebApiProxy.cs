@@ -55,36 +55,6 @@ namespace SocialNetwork.WebApi.Proxy
             }
         }
 
-        public async Task<StatusCodeHandler> LogOutUser()
-        {
-            var result = await _client.GetAsync("api/account/LogOut");
-
-            if (result.IsSuccessStatusCode)
-            {
-                var data = await result.Content.ReadAsStringAsync();
-                var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
-
-                return content;
-            }
-
-            return new StatusCodeHandler(400, "An error occured while trying to log out the user.");
-        }
-
-        public async Task<StatusCodeHandler> CheckAuthorization()
-        {
-            var result = await _client.GetAsync("api/account/CheckAuthorization");
-
-            if (result.IsSuccessStatusCode)
-            {
-                var data = await result.Content.ReadAsStringAsync();
-                var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
-
-                return content;
-            }
-
-            return new StatusCodeHandler(400, "An error occured while checking authorization.");
-        }
-
         #endregion
     }
 }

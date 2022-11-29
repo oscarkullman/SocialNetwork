@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/account/")]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
 
@@ -38,29 +38,12 @@ namespace WebAPI.Controllers
         {
             var result = await _accountService.LogIn(loginModel);
 
-            if (!result.IsSuccessful) return BadRequest(result);
+            if (!result.IsSuccessful)
+            {
+                return BadRequest(result);
+            }
 
             return Ok(result);
-        }
-
-        [HttpGet("LogOut")]
-        public async Task<ActionResult<StatusCodeHandler>> LogOut()
-        {
-            var name = User.Identity?.Name;
-
-            if (name == null)
-                return BadRequest(new StatusCodeHandler(400, "User already signed out."));
-
-            var result = await _accountService.LogOut(name);
-
-            return Ok(result);
-        }
-
-        [Authorize]
-        [HttpGet("CheckAuthorization")]
-        public async Task<ActionResult<StatusCodeHandler>> CheckAuthorization()
-        {
-            return Ok(new StatusCodeHandler(200, "You are authorized."));            
         }
     }
 }

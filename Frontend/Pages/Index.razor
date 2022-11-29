@@ -7,13 +7,13 @@
 <PageTitle>Social Network</PageTitle>
 <Navigation />
 
-@if(_isAuthorized.IsSuccessful){
+@if(_isAuthenticated)
+{
 	<Wall />
 }
-@if(!_isAuthorized.IsSuccessful){
-	
+else
+{
 	<div class="homepage">
-
 		<div class="homepage__big">
 			
 			<h1>SOCIAL NETWORK</h1>
@@ -36,7 +36,5 @@
 
 			</div>
 		</div>
-
 	</div>
-
 }
