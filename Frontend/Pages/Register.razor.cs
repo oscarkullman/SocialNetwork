@@ -15,20 +15,31 @@ namespace Frontend.Pages
 
         public RegisterModel RegisterModel { get; set; } = new();
 
-        public SignUpValidationResult ValidationResult { get; set; } = new();
+        public SignUpValidationResult RegistrationValidation { get; set; } = new();
 
         public bool IsLoading { get; set; }
 
         private async Task RegisterUser()
         {
-            await JSRuntime.InvokeVoidAsync("registrationAlert", "Registration alert message test");
-            
-            //IsLoading = !IsLoading;
+            RegistrationValidation = SignUpValidator.Validate(RegisterModel);
 
-            //await _proxy.RegisterNewUser(RegisterModel);
-            //RegisterModel = new();
+            if (RegistrationValidation.Success)
+            {
+                await JSRuntime.InvokeVoidAsync("registrationAlert", $"Registration of user {RegisterModel.Username} was successful!");
+                RegistrationValidation = new SignUpValidationResult();
+                RegisterModel = new RegisterModel();
 
-            //IsLoading = false;
+                //IsLoading = !IsLoading;
+                //var result = await _proxy.RegisterNewUser(RegisterModel);
+                //IsLoading = false;
+
+                //if (result.IsSuccessful)
+                //{
+                //    RegisterModel = new();
+                //}
+
+                //await JSRuntime.InvokeVoidAsync("registrationAlert", result.Message);
+            }
         }
     }
 }

@@ -167,6 +167,14 @@
   padding: 6px;
   outline-color: #1877f2;
 }
+.content__input__error {
+  border: 1px solid #dddfe2;
+  border-radius: 6px;
+  font-size: 17px;
+  width: 100%;
+  padding: 6px;
+  outline-color: #d90000;
+}
 .content__link {
   text-decoration: none;
   color: #1877f2;
@@ -305,11 +313,11 @@
   }
 }
 .error-text {
-  color: #7d0000;
-  margin-bottom: -35px;
+  color: #d90000;
+  margin-bottom: -40px;
 }
 
-.hide-error {
+.error-hide {
   display: none;
 }
 
