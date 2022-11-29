@@ -1,18 +1,21 @@
-﻿using WebAPI.Entities;
+﻿using Frontend.Models;
+using WebAPI.Entities;
+using WebAPI.Infrastructure.Repositories;
 
 namespace WebAPI.Infrastructure.Services
 {
-    public class PostService : IPostService
+    public class PostService  //IPostService
     {
-        public PostService()
+        private readonly IPostRepository _postRepository;
+        public PostService(IPostRepository postRepository)
         {
-
+            _postRepository = postRepository;
         }
         
-        public async Task<List<Post>> CreateNewPost(Post post)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<List<Post>> CreateNewPost(Post post)
+        //{
+        //    await _postRepository.CreateNewPost(post);
+        //}
 
         public async Task<ICollection<Post>> GetPostsByUsername(string username)
         {

@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             return Ok(new StatusCodeHandler(200, "Post was created successfully."));
         }
 
-        [HttpGet("GetPostsByUsername")]
+        [HttpGet("GetPostsByUsername/{username}")]
         public async Task<ActionResult<ICollection<Post>>> GetPostsByUsername(string username)
         {
             return Ok(new List<Post>());
