@@ -4,7 +4,7 @@ namespace SocialNetwork.Classes.Frontend
 {
     public class SignInValidator
     {
-        public static bool CheckUsername(string username)
+        public static bool CheckUsername(string? username)
         {
             if (!string.IsNullOrEmpty(username))
             {
@@ -15,12 +15,13 @@ namespace SocialNetwork.Classes.Frontend
             return true;
         }
 
-        public static bool CheckPassword(string password)
+        public static bool CheckPassword(string? password)
         {
-            if (string.IsNullOrEmpty(password))
+            if (!string.IsNullOrEmpty(password))
             {
-                return false;
-            }
+                if (password.Length < 6)
+                    return false;
+            } else { return false; }
 
             return true;
         }

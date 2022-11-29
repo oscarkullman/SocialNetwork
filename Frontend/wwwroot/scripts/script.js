@@ -1,3 +1,3 @@
-﻿function registrationAlert(message) {
+﻿function alertMessage(message) {
     alert(message);
 }

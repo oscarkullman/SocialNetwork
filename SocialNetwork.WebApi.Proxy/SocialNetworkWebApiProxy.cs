@@ -42,15 +42,17 @@ namespace SocialNetwork.WebApi.Proxy
 
             var result = await _client.PostAsync("api/account/Register", request.Content);
 
-            if (result.IsSuccessStatusCode)
+            try
             {
                 var data = await result.Content.ReadAsStringAsync();
                 var content = JsonConvert.DeserializeObject<StatusCodeHandler>(data);
 
                 return content;
             }
-
-            return new StatusCodeHandler(400, "An error occured while trying to register the user.");
+            catch (Exception e)
+            {
+                return new StatusCodeHandler(500, e.Message);
+            }
         }
 
         public async Task<StatusCodeHandler> LogOutUser()

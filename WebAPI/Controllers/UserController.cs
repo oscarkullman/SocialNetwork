@@ -25,14 +25,20 @@ namespace WebAPI.Controllers
 
             var users = await _userService.GetAllUsers(spec);
 
-            // KAN DENNA RETURNERA NULL?! KOLLA!!!!
-
-            if (users != null && users.Count > 0)
+            if (users.Count > 0)
             {
                 return Ok(users);
             }
 
             return NotFound();
+        }
+
+        [HttpGet("GetUserByUsername/{username}")]
+        public async Task<ActionResult<User>> GetUserByUsername(string username)
+        {
+            var user = await _userService.GetUserByUsername(username);
+
+            return Ok(user);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Frontend.Pages
         [Inject]
         private IJSRuntime JSRuntime { get; set; }
 
+        public NavigationManager NavigationManager { get; set; }
+
         private SocialNetworkWebApiProxy _proxy = new SocialNetworkWebApiProxy();
 
         public RegisterModel RegisterModel { get; set; } = new();
@@ -25,20 +27,16 @@ namespace Frontend.Pages
 
             if (RegistrationValidation.Success)
             {
-                await JSRuntime.InvokeVoidAsync("registrationAlert", $"Registration of user {RegisterModel.Username} was successful!");
-                RegistrationValidation = new SignUpValidationResult();
-                RegisterModel = new RegisterModel();
+                IsLoading = true;
+                var result = await _proxy.RegisterNewUser(RegisterModel);
+                IsLoading = false;
 
-                //IsLoading = !IsLoading;
-                //var result = await _proxy.RegisterNewUser(RegisterModel);
-                //IsLoading = false;
+                if (result.IsSuccessful)
+                {
+                    NavigationManager.NavigateTo("/");
+                }
 
-                //if (result.IsSuccessful)
-                //{
-                //    RegisterModel = new();
-                //}
-
-                //await JSRuntime.InvokeVoidAsync("registrationAlert", result.Message);
+                await JSRuntime.InvokeVoidAsync("alertMessage", result.Errors.Aggregate("", (errors, error) => errors = errors + $"- {error}\n"));
             }
         }
     }

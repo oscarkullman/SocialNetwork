@@ -12,23 +12,26 @@
         {
             <h2 class="content__title">Register for the social network!</h2><br />
             <input class="@(string.IsNullOrEmpty(RegistrationValidation.FirstName) ? "content__input" : "content__input__error")" type="text" name="first-name" placeholder="First Name" @bind-value="RegisterModel.FirstName" />
-            <p class="error-text @(string.IsNullOrEmpty(RegistrationValidation.FirstName) ? "error-hide" : "")">- @RegistrationValidation.FirstName</p>
+            <p class="@(string.IsNullOrEmpty(RegistrationValidation.FirstName) ? "error__text__hide" : "error__text")">- @RegistrationValidation.FirstName</p>
             <br /><br />
             <input class="@(string.IsNullOrEmpty(RegistrationValidation.LastName) ? "content__input" : "content__input__error")" type="text" name="last-name" placeholder="Last Name" @bind-value="RegisterModel.LastName" />
-            <p class="error-text @(string.IsNullOrEmpty(RegistrationValidation.LastName) ? "error-hide" : "")">- @RegistrationValidation.LastName</p>
+            <p class="@(string.IsNullOrEmpty(RegistrationValidation.LastName) ? "error__text__hide" : "error__text")">- @RegistrationValidation.LastName</p>
             <br /><br />
             <input class ="@(string.IsNullOrEmpty(RegistrationValidation.Username) ? "content__input" : "content__input__error")" type="text" name="username" placeholder="Username" @bind-value="RegisterModel.Username" />
-            <p class="error-text @(string.IsNullOrEmpty(RegistrationValidation.Username) ? "error-hide" : "")">- @RegistrationValidation.Username</p>
+            <p class="@(string.IsNullOrEmpty(RegistrationValidation.Username) ? "error__text__hide" : "error__text")">- @RegistrationValidation.Username</p>
             <br /><br />
             <input class="@(string.IsNullOrEmpty(RegistrationValidation.Email) ? "content__input" : "content__input__error")" type="text" name="email" placeholder="Email" @bind-value="RegisterModel.Email" />
-            <p class="error-text @(string.IsNullOrEmpty(RegistrationValidation.Email) ? "error-hide" : "")">- @RegistrationValidation.Email</p>
+            <p class="@(string.IsNullOrEmpty(RegistrationValidation.Email) ? "error__text__hide" : "error__text")">- @RegistrationValidation.Email</p>
             <br /><br />
             <input class="@(string.IsNullOrEmpty(RegistrationValidation.Password) ? "content__input" : "content__input__error")" type="password" name="password" placeholder="Password" @bind-value="RegisterModel.Password" />
-            <p class="error-text @(string.IsNullOrEmpty(RegistrationValidation.Password) ? "error-hide" : "")">- @RegistrationValidation.Password</p>
+            <p class="@(string.IsNullOrEmpty(RegistrationValidation.Password) ? "error__text__hide" : "error__text")">- @RegistrationValidation.Password</p>
             <br /><br />
             <input class="@(string.IsNullOrEmpty(RegistrationValidation.RepeatPassword) ? "content__input" : "content__input__error")" type="password" name="repeat-password" placeholder="Repeat password" @bind-value="RegisterModel.RepeatPassword" />
-            <p class="error-text @(string.IsNullOrEmpty(RegistrationValidation.RepeatPassword) ? "error-hide" : "")">- @RegistrationValidation.RepeatPassword</p>
+            <p class="@(string.IsNullOrEmpty(RegistrationValidation.RepeatPassword) ? "error__text__hide" : "error__text")">- @RegistrationValidation.RepeatPassword</p>
             <br /><br /><br />
+            <button class="content__button" type="submit" disabled="@IsLoading">Register</button>
+            <br /><br />
+            <a class="content__link" href="login">Already have an account? Log in here!</a>
         }
 
         @if (IsLoading)
@@ -37,8 +40,5 @@
             <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             <br /><br />
         }
-        <button class="content__button" type="submit" disabled="@IsLoading">Register</button>
-        <br /><br />
-        <a class="content__link" href="login">Already have an account? Log in here!</a>
     </EditForm>
 </div>
