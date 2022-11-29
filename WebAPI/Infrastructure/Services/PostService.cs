@@ -1,10 +1,13 @@
 ﻿using Frontend.Models;
+using SocialNetwork.Classes;
+using SocialNetwork.Classes.Post;
 using WebAPI.Entities;
 using WebAPI.Infrastructure.Repositories;
+using WebAPI.Models;
 
 namespace WebAPI.Infrastructure.Services
 {
-    public class PostService  //IPostService
+    public class PostService  : IPostService
     {
         private readonly IPostRepository _postRepository;
         public PostService(IPostRepository postRepository)
@@ -12,10 +15,11 @@ namespace WebAPI.Infrastructure.Services
             _postRepository = postRepository;
         }
         
-        //public async Task<List<Post>> CreateNewPost(Post post)
-        //{
-        //    await _postRepository.CreateNewPost(post);
-        //}
+        public async Task<StatusCodeHandler> CreateNewPost(PostModel postModel)
+        {
+          await _postRepository.CreateNewPost(postModel);
+            return new StatusCodeHandler(200, $"Successfully posted");
+        }
 
         public async Task<ICollection<Post>> GetPostsByUsername(string username)
         {

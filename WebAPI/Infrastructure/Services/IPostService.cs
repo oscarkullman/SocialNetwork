@@ -1,10 +1,12 @@
-﻿using WebAPI.Entities;
+﻿using SocialNetwork.Classes;
+using SocialNetwork.Classes.Post;
+using WebAPI.Entities;
 
 namespace WebAPI.Infrastructure.Services
 {
     public interface IPostService
     {
-        Task<List<Post>> CreateNewPost(Post post);
+        Task<StatusCodeHandler> CreateNewPost(PostModel postModel);
 
         Task<ICollection<Post>> GetPostsByUsername(string username);
     }
