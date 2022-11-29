@@ -31,6 +31,7 @@ namespace Frontend.Pages
                 
                 if (result.IsSuccessful)
                 {
+                    await JSRuntime.InvokeVoidAsync("logIn", LogInModel.Username);
                     NavigationManager.NavigateTo("/");
                 }
                 else

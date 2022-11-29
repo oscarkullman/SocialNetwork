@@ -12,9 +12,20 @@
 
         <ul class="nav__toggle__menu">
             <a href="/">
-            <li>home</li></a>
-            <a href="/login">
-            <li>log in</li></a>
+                <li>home</li>
+            </a>
+            @if (_isAuthenticated)
+            {
+                <a href="" onclick="@LogOut">
+                    <li>log out</li>
+                </a>
+            }
+            else
+            {
+                <a href="/login">
+                    <li>log in</li>
+                </a>
+            }
         </ul>
 
     </div>
@@ -23,6 +34,3 @@
     </div>
     </div>
 
-@code {
-
-}

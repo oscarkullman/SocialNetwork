@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using SocialNetwork.Classes;
 using SocialNetwork.Classes.Account;
+using Microsoft.AspNetCore.Http;
 
 namespace WebAPI.Infrastructure.Services
 {
@@ -43,7 +44,20 @@ namespace WebAPI.Infrastructure.Services
             if (newUser.Succeeded)
             {
                 await _userService.AddNewUser(registerModel);
-                await _signinManager.SignInAsync(user, isPersistent: false);
+
+                // Log in user
+                var loginModel = new LogInModel
+                {
+                    Username = registerModel.Username,
+                    Password = registerModel.Password
+                };
+                var loginResult = await LogIn(loginModel);
+                
+                if (!loginResult.IsSuccessful)
+                {
+                    return new StatusCodeHandler(400, $"Registration was successful, but an error occured during login.");
+                }
+
                 return new StatusCodeHandler(200, $"Successfully registered new user with username {user.UserName}");
             }
 
@@ -67,20 +81,11 @@ namespace WebAPI.Infrastructure.Services
 
                 if (checkPassword)
                 {
-                    await _signinManager.SignInAsync(user, isPersistent: false);
-
                     return new StatusCodeHandler(200, $"Successfully signed in as {logInModel.Username}");
                 }
             }
 
             return new StatusCodeHandler(401, "Login attempt failed.");
-        }
-
-        public async Task<StatusCodeHandler> LogOut(string? username = null)
-        {
-            await _signinManager.SignOutAsync();
-
-            return new StatusCodeHandler(200, $"Signed out user {username}.");
         }
     }
 }
