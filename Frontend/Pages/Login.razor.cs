@@ -21,13 +21,17 @@ namespace Frontend.Pages
 
         public bool LogInValidationSuccessful { get; set; } = true;
 
+        public bool IsLoading { get; set; }
+
         private async Task LogInUser()
         {
             LogInValidationSuccessful = SignInValidator.Validate(LogInModel);
 
             if (LogInValidationSuccessful)
             {
+                IsLoading = true;
                 var result = await _proxy.LogInUser(LogInModel);
+                IsLoading = false;
                 
                 if (result.IsSuccessful)
                 {
@@ -36,7 +40,7 @@ namespace Frontend.Pages
                 }
                 else
                 {
-                    await JSRuntime.InvokeVoidAsync("alertMessage", result.Message);
+                    LogInValidationSuccessful = false;
                 }
             }
         }

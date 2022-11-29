@@ -10,6 +10,7 @@ namespace WebAPI.Infrastructure.Services
     public class PostService  : IPostService
     {
         private readonly IPostRepository _postRepository;
+
         public PostService(IPostRepository postRepository)
         {
             _postRepository = postRepository;
@@ -23,7 +24,7 @@ namespace WebAPI.Infrastructure.Services
 
         public async Task<ICollection<Post>> GetPostsByUsername(string username)
         {
-            throw new NotImplementedException();
+            return new List<Post>();
         }
     }
 }
