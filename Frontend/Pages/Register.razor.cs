@@ -11,6 +11,7 @@ namespace Frontend.Pages
         [Inject]
         private IJSRuntime JSRuntime { get; set; }
 
+        [Inject]
         public NavigationManager NavigationManager { get; set; }
 
         private SocialNetworkWebApiProxy _proxy = new SocialNetworkWebApiProxy();
@@ -35,8 +36,10 @@ namespace Frontend.Pages
                 {
                     NavigationManager.NavigateTo("/");
                 }
-
-                await JSRuntime.InvokeVoidAsync("alertMessage", result.Errors.Aggregate("", (errors, error) => errors = errors + $"- {error}\n"));
+                else
+                {
+                    await JSRuntime.InvokeVoidAsync("alertMessage", result.Errors.Aggregate("", (errors, error) => errors = errors + $"- {error}\n"));
+                }
             }
         }
     }
