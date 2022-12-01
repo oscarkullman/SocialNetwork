@@ -25,11 +25,12 @@ namespace WebAPI.Infrastructure.Repositories
 
         public async Task CreateNewPost(PostModel postModel)
         {
-            var user = new IdentityUser { UserName = postModel.Username };
+            var user = await _userService.GetUserByUsername(postModel.Username);
+
             var post = new Post
             {
-                //FirstName = _userService.GetUserByUsername(user.UserName.ToString()),
-                //LastName = postModel.LastName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Content = postModel.Content,
                 Username = postModel.Username,
                 PostId = Guid.NewGuid(),

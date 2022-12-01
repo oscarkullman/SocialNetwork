@@ -6,9 +6,9 @@ using WebAPI.Models;
 
 namespace WebAPI.AutoMapper
 {
-    public class AutoMapper : Profile
+    public class Mapper : Profile
     {
-        public AutoMapper()
+        public Mapper()
         {
             CreateMap<User, UserDto>();
             CreateMap<Post, PostDto>();

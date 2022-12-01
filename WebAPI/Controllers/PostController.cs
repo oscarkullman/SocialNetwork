@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Classes;
 using SocialNetwork.Classes.Post;
 using WebAPI.Entities;
@@ -13,11 +14,14 @@ namespace WebAPI.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostService _postService;
+        private readonly IMapper _mapper;
         
         public PostController(
-            IPostService postService)
+            IPostService postService, 
+            IMapper mapper)
         {
             _postService = postService;
+            _mapper = mapper;
         }
 
         [HttpPost("CreateNewPost")]
@@ -28,11 +32,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetPostsByUsername")]
-        public async Task<ActionResult<ICollection<Post>>> GetPostsByUsername([FromQuery]PostParams postParams)
+        public async Task<ActionResult<ICollection<PostDto>>> GetPostsByUsername([FromQuery]PostParams postParams)
         {
             var postSpec = new PostSpecification(postParams);
             var posts = await _postService.GetPostsByUsername(postSpec);
-            return Ok(posts);
+
+            return Ok(_mapper.Map<List<PostDto>>(posts));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace WebAPI.Infrastructure.Services
         
         public async Task<StatusCodeHandler> CreateNewPost(PostModel postModel)
         {
-          await _postRepository.CreateNewPost(postModel);
+            await _postRepository.CreateNewPost(postModel);
             return new StatusCodeHandler(200, $"Successfully posted");
         }
 
