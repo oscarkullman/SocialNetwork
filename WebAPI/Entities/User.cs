@@ -13,5 +13,8 @@ namespace WebAPI.Models
         public string? Email { get; set; }
 
         public DateTime? DateRegistered { get; set; }
+
+        public Guid? UserId { get; set; }
+        public virtual ICollection<Follower>? followers { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace WebAPI.Data
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<Follower> followers { get; set; }  
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
