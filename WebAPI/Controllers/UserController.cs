@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using WebAPI.DTO;
 using WebAPI.Infrastructure.Services;
 using WebAPI.Infrastructure.Specification;
 using WebAPI.Infrastructure.Specification.Params;
-using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -11,34 +12,32 @@ namespace WebAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
         public UserController(
-            IUserService userService)
+            IUserService userService,
+            IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetAllUsers")]
-        public async Task<ActionResult<ICollection<User>>> GetAllUsers([FromQuery]UserParams userParams)
+        public async Task<ActionResult<ICollection<UserDto>>> GetAllUsers([FromQuery]UserParams userParams)
         {
             var spec = new UserSpecification(userParams);
 
             var users = await _userService.GetAllUsers(spec);
 
-            if (users.Count > 0)
-            {
-                return Ok(users);
-            }
-
-            return NotFound();
+            return Ok(_mapper.Map<List<UserDto>>(users));
         }
 
         [HttpGet("GetUserByUsername/{username}")]
-        public async Task<ActionResult<User>> GetUserByUsername(string username)
+        public async Task<ActionResult<UserDto>> GetUserByUsername(string username)
         {
             var user = await _userService.GetUserByUsername(username);
 
-            return Ok(user);
+            return Ok(_mapper.Map<UserDto>(user));
         }
     }
 }

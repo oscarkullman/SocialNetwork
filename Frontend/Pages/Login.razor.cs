@@ -44,6 +44,12 @@ namespace Frontend.Pages
                 }
             }
         }
+
+        protected override async Task OnInitializedAsync()
+        {
+            var authorized = await JSRuntime.InvokeAsync<bool>("isAuthenticated");
+            if (authorized) NavigationManager.NavigateTo("/");
+        }
     }
 
 }

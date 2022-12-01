@@ -32,5 +32,13 @@
     <div class="nav__logo">
         <a href="/"><img src="./images/socialnetworklogo.png" alt="social network logo" /></a>
     </div>
-    </div>
-
+    @if (_isAuthenticated)
+    {
+        <div class="nav__search">
+            <EditForm Model="@SearchModel">
+                <input class="nav__search__box" type="text" placeholder="Search username..." @bind-value="@SearchModel.Search" />
+                <button class="nav__search__button" type="submit" onclick="@SearchByUsername">Search</button>
+            </EditForm>
+        </div>
+    }
+</div>

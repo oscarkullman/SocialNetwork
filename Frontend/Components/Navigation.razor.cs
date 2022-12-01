@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using SocialNetwork.Classes.Models;
 
 namespace Frontend.Components
 {
@@ -11,17 +12,28 @@ namespace Frontend.Components
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        public SearchModel SearchModel { get; set; } = new();
+
         private bool _isAuthenticated;
 
-        protected override async Task OnInitializedAsync()
+        private void SearchByUsername()
         {
-            _isAuthenticated = await JSRuntime.InvokeAsync<bool>("isAuthenticated");
+            if (!string.IsNullOrEmpty(SearchModel.Search))
+            {
+                var url = $"/search/{SearchModel.Search}";
+                NavigationManager.NavigateTo(url, true);
+            }
         }
 
         private async Task LogOut()
         {
             await JSRuntime.InvokeVoidAsync("logOut");
             NavigationManager.NavigateTo("/login", true);
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            _isAuthenticated = await JSRuntime.InvokeAsync<bool>("isAuthenticated");
         }
     }
 }
