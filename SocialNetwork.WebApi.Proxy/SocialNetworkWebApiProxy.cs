@@ -20,10 +20,9 @@ namespace SocialNetwork.WebApi.Proxy
 
         public async Task<StatusCodeHandler> LogInUser(LogInModel logInModel)
         {
-            var request = new HttpRequestMessage();
-            request.Content = new StringContent(JsonConvert.SerializeObject(logInModel), Encoding.UTF8, "application/json");
+            var bodyContent = new StringContent(JsonConvert.SerializeObject(logInModel), Encoding.UTF8, "application/json");
 
-            var result = await _client.PostAsync("api/account/LogIn", request.Content);
+            var result = await _client.PostAsync("api/account/LogIn", bodyContent);
 
             if (result.IsSuccessStatusCode)
             {
@@ -62,10 +61,9 @@ namespace SocialNetwork.WebApi.Proxy
 
         public async Task<StatusCodeHandler> CreateNewPost(PostModel post)
         {
-            var response = new HttpResponseMessage();
-            response.Content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
+            var bodyContent = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
 
-            var result = await _client.PostAsync("api/post/CreateNewPost", response.Content);
+            var result = await _client.PostAsync("api/post/CreateNewPost", bodyContent);
 
             if (result.IsSuccessStatusCode)
             {
