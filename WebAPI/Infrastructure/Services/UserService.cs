@@ -1,4 +1,5 @@
 ﻿using Frontend.Models;
+using SocialNetwork.Classes.Account;
 using WebAPI.Infrastructure.Repositories;
 using WebAPI.Infrastructure.Specification;
 using WebAPI.Models;
@@ -27,6 +28,11 @@ namespace WebAPI.Infrastructure.Services
         public async Task<ICollection<User>> GetAllUsers(UserSpecification spec)
         {
             return await _userRepository.QueryWithSpec(spec);
+        }
+
+        public async Task FollowUser(FollowModel followModel)
+        {
+            await _userRepository.FollowUser(followModel);
         }
     }
 }

@@ -45,5 +45,10 @@ namespace WebAPI.Controllers
 
             return Ok(result);
         }
+        [HttpPost("FollowUser")]
+        public async Task<ActionResult<StatusCodeHandler>> Follow([FromBody]FollowModel followModel)
+        {
+            var result = await _accountService.Follow(followModel);
+        }
     }
 }
