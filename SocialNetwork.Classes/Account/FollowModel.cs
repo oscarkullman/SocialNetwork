@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SocialNetwork.Classes.Account
 {
-    internal class FollowModel
+    public class FollowModel
     {
+        public string? currentUser { get; set; }
+
+        public string? userNameToFollow { get; set; }
     }
 }
