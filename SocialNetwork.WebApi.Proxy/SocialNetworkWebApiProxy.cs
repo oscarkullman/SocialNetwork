@@ -77,9 +77,9 @@ namespace SocialNetwork.WebApi.Proxy
             return new StatusCodeHandler(400, "Something went wrong when posting.");
         }
 
-        public async Task<ICollection<PostDto>> GetPostsByUsername(string username)
+        public async Task<List<PostDto>> GetPostsByUsername(string username)
         {
-            var result = await _client.GetAsync($"api/post/GetPostsByUsername/{username}");
+            var result = await _client.GetAsync($"api/post/GetPostsByUsername?Username={username}&Sort=createddescending");
 
             if (result.IsSuccessStatusCode)
             {
@@ -113,7 +113,7 @@ namespace SocialNetwork.WebApi.Proxy
 
         public async Task<UserDto> GetUserByUsername(string username)
         {
-            var result = await _client.GetAsync($"api/user/GetUserByUsername?Username={username}");
+            var result = await _client.GetAsync($"api/user/GetUserByUsername/{username}");
 
             if (result.IsSuccessStatusCode)
             {

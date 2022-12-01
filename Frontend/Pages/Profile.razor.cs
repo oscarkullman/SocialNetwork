@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using SocialNetwork.Classes.Post;
 using SocialNetwork.WebApi.Proxy;
 using WebAPI.DTO;
 
@@ -18,14 +19,17 @@ namespace Frontend.Pages
 
         public UserDto User { get; set; } = new();
 
+        public List<PostDto> Posts { get; set; } = new();
+
         private SocialNetworkWebApiProxy _proxy = new SocialNetworkWebApiProxy();
 
         protected override async Task OnInitializedAsync()
         {
-            User = await _proxy.GetUserByUsername(Username);
-
             var authorized = await JSRuntime.InvokeAsync<bool>("isAuthenticated");
             if (!authorized) NavigationManager.NavigateTo("/");
+
+            User = await _proxy.GetUserByUsername(Username);
+            Posts = await _proxy.GetPostsByUsername(Username);
         }
     }
 }
