@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Classes;
 using SocialNetwork.Classes.Post;
-using WebAPI.Entities;
 using WebAPI.Infrastructure.Services;
 using WebAPI.Infrastructure.Specification;
 using WebAPI.Infrastructure.Specification.Params;
