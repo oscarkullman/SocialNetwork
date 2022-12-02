@@ -16,19 +16,20 @@ namespace Frontend.Components
 
         public List<PostDto> Posts { get; set; } = new();
 
-        private string _username;
+        public bool IsLoading { get; set; }
+
+        private string? _loggedInUser;
 
         private async Task PublishPost()
         {
-            PostModel.Username = _username;
+            PostModel.WallOwner = _loggedInUser;
+            PostModel.Username = _loggedInUser;
             var result = await _proxy.CreateNewPost(PostModel);
 
             if (result.IsSuccessful)
             {
                 PostModel = new PostModel();
-
-                Posts = await _proxy.GetPostsByUsername(_username);
-
+                Posts.Insert(0, result.Content);
                 return;
             }
 
@@ -37,9 +38,11 @@ namespace Frontend.Components
 
         protected override async Task OnInitializedAsync()
         {
-            _username = await JSRuntime.InvokeAsync<string>("getUser");
+            IsLoading = true;
+            _loggedInUser = await JSRuntime.InvokeAsync<string>("getUser");
 
-            Posts = await _proxy.GetPostsByUsername(_username);
+            Posts = await _proxy.GetPostsByWallOwner(_loggedInUser);
+            IsLoading = false;
         }
     }
 }

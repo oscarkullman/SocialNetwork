@@ -10,6 +10,8 @@ namespace SocialNetwork.Classes.Post
     {
         public Guid? PostId { get; set; }
 
+        public string? WallOwner { get; set; }
+
         public string? Username { get; set; }
 
         public string? FirstName { get; set; }

@@ -6,6 +6,6 @@ namespace WebAPI.Infrastructure.Repositories
 {
     public interface IPostRepository : IRepository<Post>
     {
-        Task CreateNewPost(PostModel postModel);
+        Task<Post> CreateNewPost(Post postModel);
     }
 }

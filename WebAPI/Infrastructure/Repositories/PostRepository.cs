@@ -14,31 +14,21 @@ namespace WebAPI.Infrastructure.Repositories
     {
 
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IUserService _userService;
 
-
-        public PostRepository(DataContext context, IUnitOfWork unitOfWork, IUserService userService) : base(context)
+        public PostRepository(
+            DataContext context, 
+            IUnitOfWork unitOfWork) 
+            : base(context)
         {
             _unitOfWork = unitOfWork;
-            _userService = userService;
         }
 
-        public async Task CreateNewPost(PostModel postModel)
+        public async Task<Post> CreateNewPost(Post post)
         {
-            var user = await _userService.GetUserByUsername(postModel.Username);
-
-            var post = new Post
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Content = postModel.Content,
-                Username = postModel.Username,
-                PostId = Guid.NewGuid(),
-                DateCreated = DateTime.Now
-            };
-
-            _context.Add(post);
+            await _context.AddAsync(post);
             await _unitOfWork.SaveChangesAsync();
+
+            return post;
         }
     }
 }

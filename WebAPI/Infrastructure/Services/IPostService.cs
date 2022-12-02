@@ -7,8 +7,10 @@ namespace WebAPI.Infrastructure.Services
 {
     public interface IPostService
     {
-        Task<StatusCodeHandler> CreateNewPost(PostModel postModel);
+        Task<StatusCodeHandler<Post>> CreateNewPost(PostModel postModel);
 
         Task<ICollection<Post>> GetPostsByUsername(PostSpecification spec);
+
+        Task<ICollection<Post>> GetPostsByWallOwner(string username);
     }
 }
