@@ -1,1 +1,55 @@
-﻿
+﻿.search-content {
+    width: 60%;
+    margin: auto;
+    padding: 1vh;
+
+    &__result {
+        background: #ffffff;
+        color: #1877f2;
+        padding: 1vh;
+        border-radius: 8px;
+        margin-bottom: 1vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__list {
+        background: #f0f2f5;
+        width: 40%;
+        margin: auto;
+
+        &__link {
+            text-decoration: none;
+            color: black;
+            width: fit-content;
+
+            &__div {
+                margin-bottom: 5px;
+                background: white;
+
+                & h3 {
+                    margin-top: 1vh;
+                    margin-right: 20px;
+                    margin-left: 50px;
+                    color: #1877f2;
+                }
+
+                & h3, p {
+                    display: inline-block;
+                }
+
+                &__arrow {
+                    font-size: 25px;
+                    float: right;
+                    margin-right: 15px;
+                    margin-top: 10px;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+        }
+    }
+}
