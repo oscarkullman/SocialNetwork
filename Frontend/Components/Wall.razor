@@ -7,6 +7,7 @@
 		<textarea class="wall-content__text" placeholder="What are you up to today?" @bind="PostModel.Content" required></textarea>
 		<button class="wall-content__submit" type="submit">Post</button>
 	</EditForm>
+	<hr />
 
 	@foreach(var post in Posts)
 	{
@@ -14,6 +15,6 @@
 			<h2>@post.Username</h2>
 			<p>@post.Content</p>
 		</div>
-
+		<hr />
 	}
 </div>

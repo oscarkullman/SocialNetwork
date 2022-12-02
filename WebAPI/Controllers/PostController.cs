@@ -27,6 +27,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<StatusCodeHandler>> CreateNewPost([FromBody]PostModel postModel)
         {
             await _postService.CreateNewPost(postModel);
+
             return Ok(new StatusCodeHandler(200, "Post was created successfully."));
         }
 

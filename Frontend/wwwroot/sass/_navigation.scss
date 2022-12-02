@@ -81,8 +81,6 @@
             &:nth-last-child(2) {
                 transform-origin: 0% 100%;
             }
-
-
         }
 
         &__menu {
@@ -116,5 +114,23 @@
             }
         }
     }
-}
 
+    &__search {
+        position: relative;
+        margin-top: 8px;
+        margin-right: 8px;
+
+        &__box {
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 17px;
+            width: 25vw;
+            height: 2.5vh;
+            outline-color: #1877f2;
+        }
+
+        &__button {
+            display: none;
+        }
+    }
+}

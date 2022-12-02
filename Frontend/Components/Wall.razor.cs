@@ -18,7 +18,6 @@ namespace Frontend.Components
 
         private string _username;
 
-
         private async Task PublishPost()
         {
             PostModel.Username = _username;

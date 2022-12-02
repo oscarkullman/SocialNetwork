@@ -4,6 +4,7 @@ using SocialNetwork.Classes;
 using SocialNetwork.Classes.Account;
 using SocialNetwork.Classes.Post;
 using System.Text;
+using WebAPI.DTO;
 
 namespace SocialNetwork.WebApi.Proxy
 {
@@ -89,6 +90,40 @@ namespace SocialNetwork.WebApi.Proxy
             }
 
             return new List<PostDto>();
+        }
+
+        #endregion
+
+        #region User
+
+        public async Task<List<UserDto>> SearchUsersByUsername(string username)
+        {
+            var result = await _client.GetAsync($"api/user/GetAllUsers?Username={username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<UserDto>>(content);
+
+                return data;
+            }
+
+            return new List<UserDto>();
+        }
+
+        public async Task<UserDto> GetUserByUsername(string username)
+        {
+            var result = await _client.GetAsync($"api/user/GetUserByUsername/{username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<UserDto>(content);
+
+                return data;
+            }
+
+            return new UserDto();
         }
 
         #endregion

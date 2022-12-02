@@ -1,0 +1,16 @@
+﻿@page "/search/{UserSearch}"
+@using Frontend.Components
+@using Frontend.Layout
+@layout Empty
+
+<Navigation />
+
+<h2>Your search gave @Users.Count results.</h2>
+<hr />
+@foreach (var user in Users)
+{
+    <h3><a href="/profile/@user.Username">@user.Username</a></h3>
+    <h4>@user.FirstName @user.LastName</h4>
+    <p>@user.DateRegistered</p>
+    <hr />
+}

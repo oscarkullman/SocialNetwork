@@ -1,0 +1,22 @@
+﻿@page "/profile/{Username}"
+@using Frontend.Components
+@using Frontend.Layout
+@layout Empty
+
+<Navigation />
+
+<h2>Profile</h2>
+<hr />
+<h3>@User.Username</h3>
+<h4>@User.FirstName @User.LastName</h4>
+<h4>@User.Email</h4>
+<hr />
+
+@foreach(var post in Posts)
+{
+	<div class="profile-content__posts">
+		<h2>@post.Username</h2>
+		<p>@post.Content</p>
+	</div>
+	<hr />
+}
