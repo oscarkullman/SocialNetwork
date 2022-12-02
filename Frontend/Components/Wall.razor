@@ -1,20 +1,35 @@
 ﻿<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<h3>Welcome, @(_username)!</h3>
-
 <div class="wall-content">
-	<EditForm model="@PostModel" OnSubmit="@PublishPost">
-		<textarea class="wall-content__text" placeholder="What are you up to today?" @bind="PostModel.Content" required></textarea>
-		<button class="wall-content__submit" type="submit">Post</button>
-	</EditForm>
-	<hr />
-
-	@foreach(var post in Posts)
+	@if (!IsLoading)
 	{
-		<div class="wall-content__posts">
-			<h2>@post.Username</h2>
-			<p>@post.Content</p>
-		</div>
+		<h3>Welcome, @(_loggedInUser)!</h3>
+		<br />
+		
+		<EditForm model="@PostModel" OnSubmit="@PublishPost">
+			<textarea class="wall-content__text" placeholder="What are you up to today?" @bind="PostModel.Content" required></textarea>
+			<button class="wall-content__submit" type="submit">Post</button>
+		</EditForm>
 		<hr />
+
+		@foreach(var post in Posts)
+		{
+			<div class="wall-content__posts">
+				@if (post.Username != _loggedInUser)
+				{
+					<h3><a href="/profile/@post.Username">@post.Username</a> posted on your wall</h3>
+				}
+				else
+				{
+					<h3>@post.Username</h3>
+				}
+				<p>@post.Content</p>
+			</div>
+			<hr />
+		}
+	}
+	else
+	{
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 	}
 </div>

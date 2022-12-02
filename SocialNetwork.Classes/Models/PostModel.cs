@@ -8,6 +8,8 @@ namespace SocialNetwork.Classes.Post
 {
     public class PostModel
     {
+        public string? WallOwner { get; set; }
+        
         public string? Username { get; set; }
 
         public string? Content { get; set; }

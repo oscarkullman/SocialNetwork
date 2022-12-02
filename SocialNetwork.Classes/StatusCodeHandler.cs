@@ -19,4 +19,15 @@
 
         public bool IsSuccessful { get; private set; }
     }
+
+    public class StatusCodeHandler<T> : StatusCodeHandler where T : class
+    {
+        public StatusCodeHandler(int? code = null, string? message = null, T? content = null) 
+            : base(code, message) 
+        {
+            Content = content;
+        }
+
+        public T? Content { get; set; }
+    }
 }

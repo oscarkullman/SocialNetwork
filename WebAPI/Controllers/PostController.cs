@@ -24,18 +24,27 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("CreateNewPost")]
-        public async Task<ActionResult<StatusCodeHandler>> CreateNewPost([FromBody]PostModel postModel)
+        public async Task<ActionResult<StatusCodeHandler<PostDto>>> CreateNewPost([FromBody]PostModel postModel)
         {
-            await _postService.CreateNewPost(postModel);
+            var post = await _postService.CreateNewPost(postModel);
+            var mappedPost = _mapper.Map<PostDto>(post.Content);
 
-            return Ok(new StatusCodeHandler(200, "Post was created successfully."));
+            return Ok(new StatusCodeHandler<PostDto>(200, "Post was created successfully.", mappedPost));
         }
 
         [HttpGet("GetPostsByUsername")]
-        public async Task<ActionResult<ICollection<PostDto>>> GetPostsByUsername([FromQuery]PostParams postParams)
+        public async Task<ActionResult<ICollection<PostDto>>> GetPostsByUsername([FromQuery] PostParams postParams)
         {
             var postSpec = new PostSpecification(postParams);
             var posts = await _postService.GetPostsByUsername(postSpec);
+
+            return Ok(_mapper.Map<List<PostDto>>(posts));
+        }
+
+        [HttpGet("GetPostsByWallOwner/{username}")]
+        public async Task<ActionResult<ICollection<PostDto>>> GetPostsByWallOwner(string username)
+        {
+            var posts = await _postService.GetPostsByWallOwner(username);
 
             return Ok(_mapper.Map<List<PostDto>>(posts));
         }

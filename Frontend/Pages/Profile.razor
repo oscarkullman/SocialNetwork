@@ -5,18 +5,39 @@
 
 <Navigation />
 
-<h2>Profile</h2>
-<hr />
-<h3>@User.Username</h3>
-<h4>@User.FirstName @User.LastName</h4>
-<h4>@User.Email</h4>
-<hr />
+<div class="profile-content">
+    @if (!IsLoading)
+    {
+        <h2>Profile</h2>
+		<hr />
+		<h3>@User.Username</h3>
+		<h4>@User.FirstName @User.LastName</h4>
+		<h4>@User.Email</h4>
+		<br />
+		<EditForm model="@PostModel" OnSubmit="@PostOnWall">
+			<textarea class="profile-content__text" placeholder="@(User.Username == _loggedInUser ? "What did you do today?" : $"Share something with {User.Username}!")" @bind="PostModel.Content" required></textarea>
+			<button class="profile-content__submit" type="submit">Post</button>
+		</EditForm>
+		<hr />
 
-@foreach(var post in Posts)
-{
-	<div class="profile-content__posts">
-		<h2>@post.Username</h2>
-		<p>@post.Content</p>
-	</div>
-	<hr />
-}
+		@foreach(var post in Posts)
+		{
+			<div class="profile-content__posts">
+				@if (post.Username != User.Username)
+				{
+					<h3><a class="profile-content__link" onclick="@(() => GoToProfile(@post.Username))">@post.Username</a> posted on @(User.Username == _loggedInUser ? "your" : $"{User.Username}'s") wall</h3>
+				}
+				else
+				{
+					<h3>@post.Username</h3>
+				}
+				<p>@post.Content</p>
+			</div>
+			<hr />
+		}
+    }
+    else
+    {
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    }
+</div>

@@ -18,6 +18,8 @@ namespace Frontend.Pages
 
         public List<UserDto> Users { get; set; } = new();
 
+        public bool IsLoading { get; set; }
+
         private SocialNetworkWebApiProxy _proxy = new SocialNetworkWebApiProxy();
 
         protected override async Task OnInitializedAsync()

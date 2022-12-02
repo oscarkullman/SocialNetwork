@@ -60,7 +60,7 @@ namespace SocialNetwork.WebApi.Proxy
 
         #region Post
 
-        public async Task<StatusCodeHandler> CreateNewPost(PostModel post)
+        public async Task<StatusCodeHandler<PostDto>> CreateNewPost(PostModel post)
         {
             var bodyContent = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
 
@@ -69,17 +69,32 @@ namespace SocialNetwork.WebApi.Proxy
             if (result.IsSuccessStatusCode)
             {
                 var content = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<StatusCodeHandler>(content);
+                var data = JsonConvert.DeserializeObject<StatusCodeHandler<PostDto>>(content);
 
                 return data;
             }
 
-            return new StatusCodeHandler(400, "Something went wrong when posting.");
+            return new StatusCodeHandler<PostDto>(400, "Something went wrong when posting.");
         }
 
         public async Task<List<PostDto>> GetPostsByUsername(string username)
         {
             var result = await _client.GetAsync($"api/post/GetPostsByUsername?Username={username}&Sort=createddescending");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<PostDto>>(content);
+
+                return data;
+            }
+
+            return new List<PostDto>();
+        }
+
+        public async Task<List<PostDto>> GetPostsByWallOwner(string username)
+        {
+            var result = await _client.GetAsync($"api/post/GetPostsByWallOwner/{username}");
 
             if (result.IsSuccessStatusCode)
             {
