@@ -14,7 +14,6 @@ namespace WebAPI.Models
 
         public DateTime? DateRegistered { get; set; }
 
-        public Guid? UserId { get; set; }
         public virtual ICollection<Follower>? followers { get; set; }
     }
 }

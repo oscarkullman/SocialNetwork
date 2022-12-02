@@ -25,7 +25,7 @@ namespace WebAPI.Infrastructure.Repositories
 
             var follow = new Follower
             {
-                FollowerId = Guid.NewGuid(),
+                FollowerId = currentUser.Id,
                 User = userToFollow
             };
             _context.Add(follow);

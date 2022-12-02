@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using SocialNetwork.Classes;
 using SocialNetwork.Classes.Account;
 using Microsoft.AspNetCore.Http;
+using WebAPI.Infrastructure.Repositories;
 
 namespace WebAPI.Infrastructure.Services
 {
@@ -11,15 +12,19 @@ namespace WebAPI.Infrastructure.Services
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signinManager;
         private readonly IUserService _userService;
+        private readonly IFollowerRepository _followerRepository;
 
         public AccountService(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signinManager,
-            IUserService userService)
+            IUserService userService,
+            IFollowerRepository followerRepository
+            )
         {
             _userManager = userManager;
             _signinManager = signinManager;
             _userService = userService;
+            _followerRepository = followerRepository;   
         }
         
         public async Task<StatusCodeHandler> Register(RegisterModel registerModel)
@@ -87,6 +92,12 @@ namespace WebAPI.Infrastructure.Services
 
             return new StatusCodeHandler(401, "Login attempt failed.");
         }
+        public async Task<StatusCodeHandler> FollowUser(FollowModel followModel)
+        {
+            await _followerRepository.FollowUser(followModel);
+            return new StatusCodeHandler(200);
+        }
 
+     
     }
 }
