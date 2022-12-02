@@ -5,19 +5,56 @@
 
 <Navigation />
 
-@if (!IsLoading)
+@*@if (!IsLoading)
 {
-    <h2>Your search gave @Users.Count results.</h2>
-    <hr />
+    <div class="search-content">
+        <div class="search-content__result">
+            <h2 class="search-content__result">Your search gave @Users.Count results.</h2>
+        </div>
+    
     @foreach (var user in Users)
     {
-        <h3><a href="/profile/@user.Username">@user.Username</a></h3>
-        <h4>@user.FirstName @user.LastName</h4>
-        <p>@user.DateRegistered</p>
-        <hr />
+        <a class="search-content__listing" href="/profile/@user.Username">
+        <div class="search-content__listing__div">
+            <h3>@user.Username</h3>
+            <h4>@user.FirstName @user.LastName</h4>
+        </div>
+        </a>
     }
+    </div>
+    
 }
 else
 {    
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+}*@
+
+
+
+@if (!IsLoading)
+{
+    <div class="search-content">
+        <div class="search-content__result">
+            <h2 class="search">Your search gave @Users.Count results.</h2>
+        </div>
+
+        <div class="search-content__list">
+            @foreach (var user in Users)
+            {
+                <a class="search-content__list__link" href="/profile/@user.Username">
+                    <div class="search-content__list__link__div">
+                        <h3>@user.Username</h3>
+                        <p>@user.FirstName @user.LastName</p>
+                        <p class="search-content__list__link__div__arrow">→</p>
+
+                    </div>
+                </a>
+            }
+        </div>
+            
+    </div>
+}
+else
+{
     <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 }
