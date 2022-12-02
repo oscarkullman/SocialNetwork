@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using SocialNetwork.Classes;
 using SocialNetwork.Classes.Account;
+using SocialNetwork.Classes.Message;
+using SocialNetwork.Classes.Models;
 using SocialNetwork.Classes.Post;
 using System.Text;
 using WebAPI.DTO;
@@ -58,6 +60,40 @@ namespace SocialNetwork.WebApi.Proxy
 
         #endregion
 
+        #region User
+
+        public async Task<List<UserDto>> SearchUsersByUsername(string username)
+        {
+            var result = await _client.GetAsync($"api/user/GetAllUsers?Username={username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<UserDto>>(content);
+
+                return data;
+            }
+
+            return new List<UserDto>();
+        }
+
+        public async Task<UserDto> GetUserByUsername(string username)
+        {
+            var result = await _client.GetAsync($"api/user/GetUserByUsername/{username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<UserDto>(content);
+
+                return data;
+            }
+
+            return new UserDto();
+        }
+
+        #endregion
+
         #region Post
 
         public async Task<StatusCodeHandler<PostDto>> CreateNewPost(PostModel post)
@@ -109,36 +145,38 @@ namespace SocialNetwork.WebApi.Proxy
 
         #endregion
 
-        #region User
+        #region Message
 
-        public async Task<List<UserDto>> SearchUsersByUsername(string username)
+        public async Task<StatusCodeHandler> SendMessage(MessageModel messageModel)
         {
-            var result = await _client.GetAsync($"api/user/GetAllUsers?Username={username}");
+            var bodyContent = new StringContent(JsonConvert.SerializeObject(messageModel), Encoding.UTF8, "application/json");
+
+            var result = await _client.PostAsync("api/message/SendMessage", bodyContent);
 
             if (result.IsSuccessStatusCode)
             {
                 var content = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<List<UserDto>>(content);
+                var data = JsonConvert.DeserializeObject<StatusCodeHandler>(content);
 
                 return data;
             }
 
-            return new List<UserDto>();
+            return new StatusCodeHandler(400, "Something went wrong when fetching messages from the database.");
         }
 
-        public async Task<UserDto> GetUserByUsername(string username)
+        public async Task<List<MessageDto>> GetMessagesByUsername(string username)
         {
-            var result = await _client.GetAsync($"api/user/GetUserByUsername/{username}");
+            var result = await _client.GetAsync($"api/message/GetMessagesByUsername/{username}");
 
             if (result.IsSuccessStatusCode)
             {
                 var content = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<UserDto>(content);
+                var data = JsonConvert.DeserializeObject<List<MessageDto>>(content);
 
                 return data;
             }
 
-            return new UserDto();
+            return new List<MessageDto>();
         }
 
         #endregion

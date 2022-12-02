@@ -14,6 +14,8 @@ namespace WebAPI.Data
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
