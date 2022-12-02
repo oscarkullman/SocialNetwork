@@ -21,45 +21,37 @@ namespace xUnitTests.Backend
                 new Post
                 {
                     PostId = Guid.NewGuid(),
-
+                    WallOwner = "Masken1",
                     Username = "Rompa23",
                     FirstName = "Roman",
-
                     LastName = "Parker",
-
                     Content = "My first post, the wheater is very nice today! Have a good day my followers!",
-
                     DateCreated = DateTime.Now,
                 },
                 new Post
                 {
                     PostId = Guid.NewGuid(),
-
+                    WallOwner = "Masken1",
                     Username = "Masken1",
                     FirstName = "Max",
-
                     LastName = "Almroth",
-
                     Content = "My first post, the wheater is very nice today! Have a good day my followers!",
-
                     DateCreated = DateTime.Now,
                 },
                 new Post
                 {
                     PostId = Guid.NewGuid(),
-
+                    WallOwner = "Kullen12",
                     Username = "Kullen12",
                     FirstName = "Oscar",
-
                     LastName = "Kullman",
-
                     Content = "My first post, the wheater is very nice today! Have a good day my followers!",
-
                     DateCreated = DateTime.Now,
                 },
 
             };
         }
+
         [Theory]
         [InlineData("Rompa23")]
         [InlineData("Masken1")]
@@ -72,15 +64,35 @@ namespace xUnitTests.Backend
 
             var postRepository = new Mock<IPostRepository>();
             postRepository.Setup(x => x.QueryWithSpec(postSpecification).Result)
-                .Returns(_posts.FindAll(x => x.Username.ToLower() == usernamne.ToLower()));
+                .Returns(_posts.Where(x => x.Username.ToLower() == usernamne.ToLower()).ToList());
+
+            var userService = new Mock<IUserService>();
 
             //Act
-            var postService = new PostService(postRepository.Object);
+            var postService = new PostService(postRepository.Object, userService.Object);
 
             var getAllPosts = postService.GetPostsByUsername(postSpecification).Result;
 
             //Assert 
             Assert.True(getAllPosts.Count == 1 && getAllPosts.ToList()[0].Username == usernamne);
+        }
+
+        [Fact]
+        public void ShouldGetPostsByWallOwner()
+        {
+            var postRepository = new Mock<IPostRepository>();
+            postRepository.Setup(x => x.Query(x => x.WallOwner == "Masken1").Result)
+                .Returns(_posts.Where(x => x.WallOwner == "Masken1").ToList());
+
+            var userService = new Mock<IUserService>();
+
+            //Act
+            var postService = new PostService(postRepository.Object, userService.Object);
+
+            var getPostsByWallOwner = postService.GetPostsByWallOwner("Masken1").Result;
+
+            //Assert 
+            Assert.True(getPostsByWallOwner.Count == 2);
         }
     }
 }
