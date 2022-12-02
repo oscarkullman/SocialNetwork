@@ -10,6 +10,5 @@ namespace WebAPI.Infrastructure.Services
 
         Task<StatusCodeHandler> LogIn(LogInModel logInModel);
 
-        Task<StatusCodeHandler> Follow(FollowModel followModel);
     }
 }

@@ -13,6 +13,5 @@ namespace WebAPI.Infrastructure.Services
 
         Task<ICollection<User>> GetAllUsers(UserSpecification spec);
 
-        Task FollowUser(FollowModel followModel);
     }
 }

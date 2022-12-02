@@ -9,6 +9,5 @@ namespace WebAPI.Infrastructure.Repositories
     {
         Task AddNewUser(RegisterModel registerModel);
 
-        Task FollowUser(FollowModel followModel);
     }
 }

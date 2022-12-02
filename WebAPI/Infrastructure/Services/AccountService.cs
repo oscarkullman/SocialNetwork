@@ -87,9 +87,6 @@ namespace WebAPI.Infrastructure.Services
 
             return new StatusCodeHandler(401, "Login attempt failed.");
         }
-        public async Task<StatusCodeHandler> Follow(FollowModel followModel)
-        {
 
-        }
     }
 }

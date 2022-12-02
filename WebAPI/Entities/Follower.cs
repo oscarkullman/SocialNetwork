@@ -2,7 +2,7 @@
 
 namespace WebAPI.Entities
 {
-    public class Follower
+    public class Follower :BaseEntity
     {
         public Guid FollowerId { get; set; }
 

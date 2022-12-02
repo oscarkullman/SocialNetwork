@@ -30,9 +30,6 @@ namespace WebAPI.Infrastructure.Services
             return await _userRepository.QueryWithSpec(spec);
         }
 
-        public async Task FollowUser(FollowModel followModel)
-        {
-            await _userRepository.FollowUser(followModel);
-        }
+        
     }
 }
