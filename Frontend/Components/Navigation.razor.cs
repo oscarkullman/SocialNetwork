@@ -16,6 +16,8 @@ namespace Frontend.Components
 
         private bool _isAuthenticated;
 
+        private string _loggedInUser;
+
         private void SearchByUsername()
         {
             if (!string.IsNullOrEmpty(SearchModel.Search))
@@ -34,6 +36,7 @@ namespace Frontend.Components
         protected override async Task OnInitializedAsync()
         {
             _isAuthenticated = await JSRuntime.InvokeAsync<bool>("isAuthenticated");
+            _loggedInUser = await JSRuntime.InvokeAsync<string>("getUser");
         }
     }
 }

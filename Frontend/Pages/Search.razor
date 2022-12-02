@@ -5,32 +5,6 @@
 
 <Navigation />
 
-@*@if (!IsLoading)
-{
-    <div class="search-content">
-        <div class="search-content__result">
-            <h2 class="search-content__result">Your search gave @Users.Count results.</h2>
-        </div>
-    
-    @foreach (var user in Users)
-    {
-        <a class="search-content__listing" href="/profile/@user.Username">
-        <div class="search-content__listing__div">
-            <h3>@user.Username</h3>
-            <h4>@user.FirstName @user.LastName</h4>
-        </div>
-        </a>
-    }
-    </div>
-    
-}
-else
-{    
-    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-}*@
-
-
-
 @if (!IsLoading)
 {
     <div class="search-content">
