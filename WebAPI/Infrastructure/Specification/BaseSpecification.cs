@@ -6,6 +6,8 @@ namespace WebAPI.Specification
     {
         public Expression<Func<T, bool>>? Criteria { get; private set; }
 
+        public List<Expression<Func<T, object>>>? Includings { get; private set; } = new();
+
         public Expression<Func<T, object>>? Sort { get; private set; }
 
         public Expression<Func<T, object>>? SortDescending { get; private set; }

@@ -12,6 +12,8 @@ namespace WebAPI.Models
 
         public string? Email { get; set; }
 
+        public ICollection<Follow>? Follows { get; set; } = new List<Follow>();
+
         public DateTime? DateRegistered { get; set; }
     }
 }

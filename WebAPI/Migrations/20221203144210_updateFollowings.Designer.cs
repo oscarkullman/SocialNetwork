@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Data;
 
@@ -10,9 +11,11 @@ using WebAPI.Data;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221203144210_updateFollowings")]
+    partial class updateFollowings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -207,32 +210,6 @@ namespace WebAPI.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-                modelBuilder.Entity("WebAPI.Entities.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DateSent")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("MessageId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Reciever")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Sender")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("WebAPI.Entities.Follow", b =>

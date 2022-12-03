@@ -22,6 +22,8 @@ namespace WebAPI.Infrastructure.Specification
                         break;
                 }
             }
+
+            Includings.Add(x => x.Follows);
         }
     }
 }

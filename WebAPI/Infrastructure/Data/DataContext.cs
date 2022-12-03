@@ -14,6 +14,8 @@ namespace WebAPI.Data
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<Follow> Followings { get; set; }
+
         public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -21,7 +23,10 @@ namespace WebAPI.Data
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-
+            builder.Entity<User>()
+                .HasMany(x => x.Follows)
+                .WithOne()
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

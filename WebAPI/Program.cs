@@ -42,10 +42,14 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IFollowRepository, FollowRepository>();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IFollowService, FollowService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
