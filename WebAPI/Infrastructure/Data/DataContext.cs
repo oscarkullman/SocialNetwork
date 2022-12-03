@@ -24,7 +24,7 @@ namespace WebAPI.Data
             builder.Entity<User>()
                 .HasMany(x => x.Follows)
                 .WithOne()
-                .HasForeignKey(x => x.FollowId);
+                .HasForeignKey(x => x.UserId);
         }
     }
 }
