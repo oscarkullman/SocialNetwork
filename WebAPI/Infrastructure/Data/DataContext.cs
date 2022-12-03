@@ -14,12 +14,17 @@ namespace WebAPI.Data
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<Follow> Followings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-
+            builder.Entity<User>()
+                .HasMany(x => x.Follows)
+                .WithOne()
+                .HasForeignKey(x => x.UserId);
         }
     }
 }
