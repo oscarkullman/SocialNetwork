@@ -16,6 +16,12 @@
             </a>
             @if (_isAuthenticated)
             {
+                <a href="/profile/@_loggedInUser">
+                    <li>profile</li>
+                </a>
+                <a href="/messages">
+                    <li>messages</li>
+                </a>
                 <a href="" onclick="@LogOut">
                     <li>log out</li>
                 </a>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using SocialNetwork.Classes.Models;
 using SocialNetwork.Classes.Post;
 using SocialNetwork.WebApi.Proxy;
 using WebAPI.DTO;
@@ -19,11 +20,15 @@ namespace Frontend.Pages
 
         public PostModel PostModel { get; set; } = new();
 
+        public MessageModel MessageModel { get; set; } = new();
+
         public UserDto User { get; set; } = new();
 
         public List<PostDto> Posts { get; set; } = new();
 
         public bool IsLoading { get; set; }
+
+        public bool ShowDialog { get; set; }
 
         private string? _loggedInUser;
 
@@ -48,6 +53,32 @@ namespace Frontend.Pages
         private void GoToProfile(string username)
         {
             NavigationManager.NavigateTo($"/profile/{username}", true);
+        }
+
+
+        private void ToggleMessageDialog()
+        {
+            ShowDialog = !ShowDialog;
+        }
+
+        private async Task SendMessage()
+        {
+            if (!string.IsNullOrEmpty(MessageModel.Content))
+            {
+                MessageModel.Sender = _loggedInUser;
+                MessageModel.Reciever = User.Username;
+
+                var result = await _proxy.SendMessage(MessageModel);
+
+                if (result.IsSuccessful)
+                {
+                    ToggleMessageDialog();
+                    MessageModel = new();
+                    return;
+                }
+
+                await JSRuntime.InvokeVoidAsync("alertMessage", "An error occured when sending direct message.");
+            }
         }
 
         protected override async Task OnInitializedAsync()

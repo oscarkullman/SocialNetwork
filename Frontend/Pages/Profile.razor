@@ -8,11 +8,26 @@
 <div class="profile-content">
 	@if (!IsLoading)
 	{
+		@if (ShowDialog)
+		{
+			<div class="profile-dialog">
+				<textarea class="profile-dialog__text" placeholder="Send a private message..." @bind="MessageModel.Content"></textarea>
+				<br />
+				<button class="profile-dialog__button" onclick="@SendMessage">Send</button>
+				<button onclick="@ToggleMessageDialog">Close</button>
+			</div>
+		}
+		
 		<div class="profile-content__info">
 			<h2>@(User.Username)'s profile</h2>
 			<br />
 			<h4>@User.FirstName @User.LastName</h4>
 			<h4>@User.Email</h4>
+			@if (_loggedInUser != User.Username)
+			{
+				<br />
+				<button onclick="@ToggleMessageDialog">Send Direct Message</button>
+			}
 		</div>
 		<br />
 		<EditForm model="@PostModel" OnSubmit="@PostOnWall">

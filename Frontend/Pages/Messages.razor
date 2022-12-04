@@ -1,0 +1,28 @@
+﻿@page "/messages";
+@using Frontend.Components
+@using Frontend.Layout
+@layout Empty
+
+<Navigation />
+
+<h3>Messages</h3>
+<hr />
+
+@foreach (var message in UserMessages)
+{
+    <div>
+        <h4>@message.Sender</h4>
+        <p>@(message.Content.Substring(0, (message.Content.Length < 14 ? message.Content.Length : 14)))@(message.Content.Length >= 14 ? "..." : "")</p>
+        <button onclick="@(() => SetCurrentMessage(message))">Open</button>
+    </div>
+    <hr />
+}
+<hr />
+<h1>CURRENT MESSAGE</h1>
+@if (!string.IsNullOrEmpty(CurrentMessage.Content))
+{
+    <h3>Sender: @CurrentMessage.Sender</h3>
+    <h3>Reciever: @CurrentMessage.Reciever</h3>
+    <h4>@CurrentMessage.DateSent</h4>
+    <p>@CurrentMessage.Content</p>
+}

@@ -16,6 +16,8 @@ namespace WebAPI.Data
 
         public DbSet<Follow> Followings { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -23,7 +23,7 @@ namespace WebAPI.Infrastructure.Specification
                 }
             }
 
-            Includings.Add(x => x.Follows);
+            IncludeMethod(x => x.Follows);
         }
     }
 }

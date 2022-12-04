@@ -58,7 +58,7 @@ namespace WebAPI.Repositories
                 query = query.Skip(spec.Skip.Value).Take(spec.Take.Value);
             }
 
-            if (spec.Includings.Count > 0)
+            if (spec.Includings?.Count > 0)
             {
                 query = spec.Includings.Aggregate(query, (current, include) => current.Include(include));
             }
