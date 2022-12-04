@@ -199,9 +199,10 @@ namespace SocialNetwork.WebApi.Proxy
 
         #region Follow
 
-        public async Task<StatusCodeHandler> AddNewFollow(string userFollowing, string userToFollow)
+        public async Task<StatusCodeHandler> AddNewFollow(FollowModel followModel)
         {
-            var result = await _client.GetAsync($"api/follow/AddNewFollow/{userFollowing}/{userToFollow}");
+            var bodyContent = new StringContent(JsonConvert.SerializeObject(followModel), Encoding.UTF8, "application/json");
+            var result = await _client.PostAsync($"api/follow/AddNewFollow", bodyContent);
 
             if (result.IsSuccessStatusCode)
             {
@@ -211,7 +212,19 @@ namespace SocialNetwork.WebApi.Proxy
                 return data;
             }
 
-            return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to follow {userToFollow}.");
+            return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to follow {followModel.UserToFollow}.");
+        }
+
+        public async Task<int> GetUserFollowersCount(string username)
+        {
+            var result = await _client.GetAsync($"api/follow/GetUserFollowersCount/{username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                return int.Parse(await result.Content.ReadAsStringAsync());
+            }
+
+            return 0;
         }
 
         #endregion

@@ -22,10 +22,18 @@
 			<h2>@(ProfileUser.Username)'s profile</h2>
 			<br />
 			<h4>@ProfileUser.FirstName @ProfileUser.LastName</h4>
-			<h4>@ProfileUser.Email</h4>
+			<h4>Followers @UserFollowersCount - Following @ProfileUser.Follows?.Count</h4>
 			@if (LoggedInUser.Username != ProfileUser.Username)
 			{
 				<br />
+				@if (LoggedInUser.Follows.Any(x => x.Username == ProfileUser.Username))
+				{
+					<p>You are already following @ProfileUser.Username</p>
+				}
+				else
+				{
+					<button onclick="@FollowUser">Follow</button><br />
+				}
 				<button onclick="@ToggleMessageDialog">Send Direct Message</button>
 			}
 		</div>
