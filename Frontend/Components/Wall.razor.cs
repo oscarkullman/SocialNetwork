@@ -41,7 +41,7 @@ namespace Frontend.Components
             IsLoading = true;
             _loggedInUser = await JSRuntime.InvokeAsync<string>("getUser");
 
-            Posts = await _proxy.GetPostsByWallOwner(_loggedInUser);
+            Posts = await _proxy.GetPostsByUserAndFollowings(_loggedInUser);
             IsLoading = false;
         }
     }

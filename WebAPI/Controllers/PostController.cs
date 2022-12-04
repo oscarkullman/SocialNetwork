@@ -27,9 +27,9 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<StatusCodeHandler<PostDto>>> CreateNewPost([FromBody]PostModel postModel)
         {
             var post = await _postService.CreateNewPost(postModel);
-            var mappedPost = _mapper.Map<PostDto>(post.Content);
+            var mappedPost = _mapper.Map<StatusCodeHandler<PostDto>>(post);
 
-            return Ok(new StatusCodeHandler<PostDto>(200, "Post was created successfully.", mappedPost));
+            return Ok(mappedPost);
         }
 
         [HttpGet("GetPostsByUsername")]
@@ -45,6 +45,14 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<ICollection<PostDto>>> GetPostsByWallOwner(string username)
         {
             var posts = await _postService.GetPostsByWallOwner(username);
+
+            return Ok(_mapper.Map<List<PostDto>>(posts));
+        }
+
+        [HttpGet("GetPostsByUserAndFollowings/{username}")]
+        public async Task<ActionResult<ICollection<PostDto>>> GetPostsByUserAndFollowings(string username)
+        {
+            var posts = await _postService.GetPostsByUserAndFollowings(username);
 
             return Ok(_mapper.Map<List<PostDto>>(posts));
         }

@@ -35,6 +35,9 @@ namespace WebAPI.Infrastructure.Services
         public async Task<ICollection<Message>> GetMessagesByUsername(string username)
         {
             var messages = await _messageRepository.Query(x => x.Reciever == username);
+            messages = messages.AsQueryable()
+                .OrderByDescending(x => x.DateSent)
+                .ToList();
 
             return messages;
         }

@@ -12,5 +12,7 @@ namespace WebAPI.Infrastructure.Services
         Task<ICollection<Post>> GetPostsByUsername(PostSpecification spec);
 
         Task<ICollection<Post>> GetPostsByWallOwner(string username);
+
+        Task<ICollection<Post>> GetPostsByUserAndFollowings(string username);
     }
 }

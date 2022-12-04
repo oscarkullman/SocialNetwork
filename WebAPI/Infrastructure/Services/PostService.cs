@@ -38,7 +38,7 @@ namespace WebAPI.Infrastructure.Services
             };
 
             var publishedPost = await _postRepository.CreateNewPost(post);
-            return new StatusCodeHandler<Post>(200, $"Successfully posted", publishedPost);
+            return new StatusCodeHandler<Post>(200, $"Successfully published new post", publishedPost);
         }
 
         public async Task<ICollection<Post>> GetPostsByUsername(PostSpecification spec)
@@ -49,6 +49,21 @@ namespace WebAPI.Infrastructure.Services
         public async Task<ICollection<Post>> GetPostsByWallOwner(string username)
         {
             var posts = await _postRepository.Query(x => x.WallOwner == username);
+
+            posts = posts.AsQueryable()
+                .OrderByDescending(x => x.DateCreated)
+                .ToList();
+
+            return posts;
+        }
+
+        public async Task<ICollection<Post>> GetPostsByUserAndFollowings(string username)
+        {
+            var user = await _userService.GetUserByUsername(username);
+
+            var posts = await _postRepository
+                .Query(x => x.WallOwner == username || 
+                user.Follows.Select(p => p.Username).Contains(x.WallOwner));
 
             posts = posts.AsQueryable()
                 .OrderByDescending(x => x.DateCreated)

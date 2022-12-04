@@ -11,7 +11,7 @@
 		@if (ShowDialog)
 		{
 			<div class="profile-dialog">
-				<textarea class="profile-dialog__text" placeholder="Send a private message..." @bind="MessageModel.Content"></textarea>
+				<textarea class="profile-dialog__text" placeholder="Send a private message..." @bind="MessageModel.Content" required></textarea>
 				<br />
 				<button class="profile-dialog__button" onclick="@SendMessage">Send</button>
 				<button onclick="@ToggleMessageDialog">Close</button>
@@ -19,11 +19,11 @@
 		}
 		
 		<div class="profile-content__info">
-			<h2>@(User.Username)'s profile</h2>
+			<h2>@(ProfileUser.Username)'s profile</h2>
 			<br />
-			<h4>@User.FirstName @User.LastName</h4>
-			<h4>@User.Email</h4>
-			@if (_loggedInUser != User.Username)
+			<h4>@ProfileUser.FirstName @ProfileUser.LastName</h4>
+			<h4>@ProfileUser.Email</h4>
+			@if (LoggedInUser.Username != ProfileUser.Username)
 			{
 				<br />
 				<button onclick="@ToggleMessageDialog">Send Direct Message</button>
@@ -31,7 +31,7 @@
 		</div>
 		<br />
 		<EditForm model="@PostModel" OnSubmit="@PostOnWall">
-			<textarea class="profile-content__text" placeholder="@(User.Username == _loggedInUser ? "What did you do today?" : $"Share something with {User.Username}!")" @bind="PostModel.Content" required></textarea>
+			<textarea class="profile-content__text" placeholder="@(ProfileUser.Username == LoggedInUser.Username ? "What did you do today?" : $"Share something with {ProfileUser.Username}!")" @bind="PostModel.Content" required></textarea>
 			<button class="profile-content__submit" type="submit">Post</button>
 		</EditForm>
 
@@ -39,9 +39,9 @@
 			@foreach (var post in Posts)
 			{
 				<div class="profile-content__posts__post">
-					@if (post.Username != User.Username)
+					@if (post.Username != ProfileUser.Username)
 					{
-						<h3><a class="profile-content__link" onclick="@(() => GoToProfile(@post.Username))">@post.Username</a> posted on @(User.Username == _loggedInUser ? "your" : $"{User.Username}'s") wall</h3>
+						<h3><a class="profile-content__link" onclick="@(() => GoToProfile(@post.Username))">@post.Username</a> posted on @(ProfileUser.Username == LoggedInUser.Username ? "your" : $"{ProfileUser.Username}'s") wall</h3>
 					}
 					else
 					{

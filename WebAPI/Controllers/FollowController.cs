@@ -21,12 +21,12 @@ namespace WebAPI.Controllers
         {
             var result = await _followService.AddNewFollow(userFollowing, userToFollow);
 
-            if (!result.IsSuccessful)
+            if (result.IsSuccessful)
             {
-                return BadRequest(result);
+                return Ok(result);
             }
             
-            return Ok(result);
+            return BadRequest(result);
         }
 
         [HttpGet("GetAllFollowings")]
