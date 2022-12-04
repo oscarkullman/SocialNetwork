@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 using SocialNetwork.Classes.Models;
 using SocialNetwork.Classes.Post;
+using SocialNetwork.Classes.User;
 using SocialNetwork.WebApi.Proxy;
 using WebAPI.DTO;
 
@@ -25,6 +26,8 @@ namespace Frontend.Pages
         public UserDto ProfileUser { get; set; } = new();
 
         public UserDto LoggedInUser { get; set; } = new();
+
+        public int UserFollowersCount { get; set; }
 
         public List<PostDto> Posts { get; set; } = new();
 
@@ -61,6 +64,30 @@ namespace Frontend.Pages
             ShowDialog = !ShowDialog;
         }
 
+        private async Task FollowUser()
+        {
+            var followModel = new FollowModel
+            {
+                UserFollowing = LoggedInUser.Username,
+                UserToFollow = ProfileUser.Username
+            };
+
+            var result = await _proxy.AddNewFollow(followModel);
+
+            if (!result.IsSuccessful)
+            {
+                await JSRuntime.InvokeVoidAsync("alertMessage", $"Something went wrong when trying to follow {ProfileUser.Username}");
+                return;
+            }
+
+            UserFollowersCount++;
+            LoggedInUser.Follows.Add(new FollowDto
+            {
+                Username = ProfileUser.Username
+            });
+            StateHasChanged();
+        }
+
         private async Task SendMessage()
         {
             if (!string.IsNullOrEmpty(MessageModel.Content))
@@ -91,6 +118,8 @@ namespace Frontend.Pages
 
             ProfileUser = await _proxy.GetUserByUsername(Username);
             LoggedInUser = await _proxy.GetUserByUsername(loggedInUserUsername);
+            UserFollowersCount = await _proxy.GetUserFollowersCount(Username);
+
             Posts = await _proxy.GetPostsByWallOwner(Username);
             IsLoading = false;
         }

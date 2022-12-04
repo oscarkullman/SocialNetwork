@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Classes;
+using SocialNetwork.Classes.Models;
 using WebAPI.Infrastructure.Services;
 
 namespace WebAPI.Controllers
@@ -16,10 +17,10 @@ namespace WebAPI.Controllers
             _followService = followService;
         }
 
-        [HttpPost("AddNewFollow/{userFollowing}/{userToFollow}")]
-        public async Task<ActionResult<StatusCodeHandler>> AddNewFollow(string userFollowing, string userToFollow)
+        [HttpPost("AddNewFollow")]
+        public async Task<ActionResult<StatusCodeHandler>> AddNewFollow([FromBody]FollowModel followModel)
         {
-            var result = await _followService.AddNewFollow(userFollowing, userToFollow);
+            var result = await _followService.AddNewFollow(followModel);
 
             if (result.IsSuccessful)
             {
@@ -35,6 +36,14 @@ namespace WebAPI.Controllers
             var followings = await _followService.GetAllFollowings();
             
             return Ok(followings);
+        }
+
+        [HttpGet("GetUserFollowersCount/{username}")]
+        public async Task<ActionResult<int>> GetUserFollowersCount(string username)
+        {
+            var followers = await _followService.GetUserFollowersCount(username);
+
+            return Ok(followers);
         }
     }
 }
