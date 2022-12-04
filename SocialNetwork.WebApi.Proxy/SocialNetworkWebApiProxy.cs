@@ -5,6 +5,7 @@ using SocialNetwork.Classes.Account;
 using SocialNetwork.Classes.Message;
 using SocialNetwork.Classes.Models;
 using SocialNetwork.Classes.Post;
+using SocialNetwork.Classes.User;
 using System.Text;
 using WebAPI.DTO;
 
@@ -177,6 +178,25 @@ namespace SocialNetwork.WebApi.Proxy
             }
 
             return new List<MessageDto>();
+        }
+
+        #endregion
+
+        #region Follow
+
+        public async Task<StatusCodeHandler> AddNewFollow(string userFollowing, string userToFollow)
+        {
+            var result = await _client.GetAsync($"api/follow/AddNewFollow/{userFollowing}/{userToFollow}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<StatusCodeHandler>(content);
+
+                return data;
+            }
+
+            return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to follow {userToFollow}.");
         }
 
         #endregion

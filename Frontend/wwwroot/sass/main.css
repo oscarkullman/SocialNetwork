@@ -489,6 +489,36 @@
   color: #1877f2;
 }
 
+.profile-dialog {
+  position: absolute;
+  padding: 15px 15px;
+  height: fit-content;
+  width: fit-content;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.profile-dialog__text {
+  width: 400px;
+  height: 150px;
+  resize: none;
+}
+.profile-dialog__button {
+  color: #ffffff;
+  display: block;
+  margin: auto;
+  border: 2px solid #ffffff;
+  background-color: #1877f2;
+  padding: 2% 1%;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 36px;
+}
+
 .profile-content {
   margin: auto;
   max-height: 100vh;
@@ -551,9 +581,11 @@
 .profile-content__posts__post a {
   text-decoration: none;
   color: #1877f2;
+  cursor: pointer;
 }
 .profile-content__posts__post a:hover {
   color: #1877f2;
+  text-decoration: underline;
 }
 .profile-content__posts__post h3 {
   margin-left: 10%;

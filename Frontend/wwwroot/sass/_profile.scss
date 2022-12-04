@@ -1,4 +1,36 @@
-﻿.profile-content {
+﻿.profile-dialog {
+    position: absolute;
+    padding: 15px 15px;
+    height: fit-content;
+    width: fit-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 1px solid black;
+    border-radius: 4px;
+
+    &__text {
+        width: 400px;
+        height: 150px;
+        resize: none;
+    }
+
+    &__button {
+        color: #ffffff;
+        display: block;
+        margin: auto;
+        border: 2px solid #ffffff;
+        background-color: #1877f2;
+        padding: 2% 1%;
+        width: 100%;
+        border-radius: 6px;
+        font-size: 20px;
+        line-height: 36px;
+    }
+}
+
+.profile-content {
     margin: auto;
     max-height: 100vh;
     width: 80vw;
@@ -65,9 +97,11 @@
             & a {
                 text-decoration: none;
                 color: #1877f2;
+                cursor: pointer;
 
                 &:hover {
                     color: #1877f2;
+                    text-decoration: underline;
                 }
             }
 

@@ -23,6 +23,11 @@ namespace WebAPI.Specification
 
         public BaseSpecification() { }
 
+        public void IncludeMethod(Expression<Func<T, object>> expression)
+        {
+            Includings.Add(expression);
+        }
+
         public void SortMethod(Expression<Func<T, object>> expression)
         {
             Sort = expression;
