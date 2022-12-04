@@ -27,6 +27,11 @@ namespace Frontend.Components
             }
         }
 
+        private void GoToProfile(string username)
+        {
+            NavigationManager.NavigateTo($"/profile/{username}", true);
+        }
+
         private async Task LogOut()
         {
             await JSRuntime.InvokeVoidAsync("logOut");

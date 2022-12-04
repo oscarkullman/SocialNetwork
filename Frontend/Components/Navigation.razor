@@ -16,7 +16,7 @@
             </a>
             @if (_isAuthenticated)
             {
-                <a href="/profile/@_loggedInUser">
+                <a href="/profile/@_loggedInUser" onclick="@(() => GoToProfile(_loggedInUser))">
                     <li>profile</li>
                 </a>
                 <a href="/messages">

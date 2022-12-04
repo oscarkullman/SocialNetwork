@@ -21,15 +21,20 @@ namespace WebAPI.Infrastructure.Services
         {
             var user = await _userService.GetUserByUsername(userFollowing);
             
-            var follow = new Follow
+            if (user != null)
             {
-                UserId = user.Id,
-                Username = userToFollow
-            };
+                var follow = new Follow
+                {
+                    UserId = user.Id,
+                    Username = userToFollow
+                };
 
-            var result = await _followRepository.AddNewFollowing(follow);
+                var result = await _followRepository.AddNewFollowing(follow);
 
-            return result;
+                return result;
+            }
+
+            return new StatusCodeHandler(400, $"Something went wrong when followig {userToFollow}");
         }
 
         public async Task<ICollection<Follow>> GetAllFollowings()

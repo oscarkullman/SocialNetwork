@@ -1,4 +1,5 @@
-﻿using WebAPI.Infrastructure.Specification.Params;
+﻿using System.Linq.Expressions;
+using WebAPI.Infrastructure.Specification.Params;
 using WebAPI.Models;
 using WebAPI.Specification;
 
@@ -23,6 +24,11 @@ namespace WebAPI.Infrastructure.Specification
                 }
             }
 
+            IncludeMethod(x => x.Follows);
+        }
+
+        public UserSpecification(Expression<Func<User, bool>> expression) : base(expression)
+        {
             IncludeMethod(x => x.Follows);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SocialNetwork.Classes;
 using SocialNetwork.Classes.Message;
 using SocialNetwork.Classes.Post;
 using SocialNetwork.Classes.User;
@@ -14,6 +15,7 @@ namespace WebAPI.AutoMapper
         {
             CreateMap<User, UserDto>();
             CreateMap<Post, PostDto>();
+            CreateMap<StatusCodeHandler<Post>, StatusCodeHandler<PostDto>>();
             CreateMap<Follow, FollowDto>();
             CreateMap<Message, MessageDto>();
         }

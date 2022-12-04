@@ -38,12 +38,12 @@ namespace WebAPI.Controllers
         {
             var result = await _accountService.LogIn(loginModel);
 
-            if (!result.IsSuccessful)
+            if (result.IsSuccessful)
             {
-                return BadRequest(result);
+                return Ok(result);
             }
 
-            return Ok(result);
+            return BadRequest(result);
         }
     }
 }

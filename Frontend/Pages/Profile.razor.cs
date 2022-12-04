@@ -22,7 +22,9 @@ namespace Frontend.Pages
 
         public MessageModel MessageModel { get; set; } = new();
 
-        public UserDto User { get; set; } = new();
+        public UserDto ProfileUser { get; set; } = new();
+
+        public UserDto LoggedInUser { get; set; } = new();
 
         public List<PostDto> Posts { get; set; } = new();
 
@@ -30,14 +32,12 @@ namespace Frontend.Pages
 
         public bool ShowDialog { get; set; }
 
-        private string? _loggedInUser;
-
         private SocialNetworkWebApiProxy _proxy = new SocialNetworkWebApiProxy();
 
         private async Task PostOnWall()
         {
-            PostModel.WallOwner = User.Username;
-            PostModel.Username = _loggedInUser;
+            PostModel.WallOwner = ProfileUser.Username;
+            PostModel.Username = LoggedInUser.Username;
             var result = await _proxy.CreateNewPost(PostModel);
 
             if (result.IsSuccessful)
@@ -65,8 +65,8 @@ namespace Frontend.Pages
         {
             if (!string.IsNullOrEmpty(MessageModel.Content))
             {
-                MessageModel.Sender = _loggedInUser;
-                MessageModel.Reciever = User.Username;
+                MessageModel.Sender = LoggedInUser.Username;
+                MessageModel.Reciever = ProfileUser.Username;
 
                 var result = await _proxy.SendMessage(MessageModel);
 
@@ -87,8 +87,10 @@ namespace Frontend.Pages
             var authorized = await JSRuntime.InvokeAsync<bool>("isAuthenticated");
             if (!authorized) NavigationManager.NavigateTo("/");
 
-            _loggedInUser = await JSRuntime.InvokeAsync<string>("getUser");
-            User = await _proxy.GetUserByUsername(Username);
+            var loggedInUserUsername = await JSRuntime.InvokeAsync<string>("getUser");
+
+            ProfileUser = await _proxy.GetUserByUsername(Username);
+            LoggedInUser = await _proxy.GetUserByUsername(loggedInUserUsername);
             Posts = await _proxy.GetPostsByWallOwner(Username);
             IsLoading = false;
         }

@@ -9,8 +9,10 @@ namespace WebAPI.Repositories
 
         Task<ICollection<TEntity>> Query(Expression<Func<TEntity, bool>> expression);
 
+        Task<ICollection<TEntity>> QueryWithSpec(ISpecification<TEntity> spec);
+
         Task<TEntity?> QueryFirst(Expression<Func<TEntity, bool>> expression);
 
-        Task<ICollection<TEntity>> QueryWithSpec(ISpecification<TEntity> spec);
+        Task<TEntity?> QueryFirstWithSpec(ISpecification<TEntity> spec);
     }
 }

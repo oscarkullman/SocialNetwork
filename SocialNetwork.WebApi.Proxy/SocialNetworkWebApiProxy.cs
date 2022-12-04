@@ -144,6 +144,21 @@ namespace SocialNetwork.WebApi.Proxy
             return new List<PostDto>();
         }
 
+        public async Task<List<PostDto>> GetPostsByUserAndFollowings(string username)
+        {
+            var result = await _client.GetAsync($"api/post/GetPostsByUserAndFollowings/{username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<PostDto>>(content);
+
+                return data;
+            }
+
+            return new List<PostDto>();
+        }
+
         #endregion
 
         #region Message

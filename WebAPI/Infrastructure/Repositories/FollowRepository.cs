@@ -22,7 +22,7 @@ namespace WebAPI.Infrastructure.Repositories
             await _context.AddAsync(follow);
             await _unitOfWork.SaveChangesAsync();
             
-            return new StatusCodeHandler(200, "Added following to database successfully.");
+            return new StatusCodeHandler(200, $"Successfully started following {follow.Username}.");
         }
     }
 }
