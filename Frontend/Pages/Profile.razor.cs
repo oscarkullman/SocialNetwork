@@ -81,11 +81,7 @@ namespace Frontend.Pages
             }
 
             UserFollowersCount++;
-            LoggedInUser.Follows.Add(new FollowDto
-            {
-                UserId = LoggedInUser.Id,
-                Username = ProfileUser.Username
-            });
+            LoggedInUser.Follows.Add(result.Content);
             StateHasChanged();
         }
 

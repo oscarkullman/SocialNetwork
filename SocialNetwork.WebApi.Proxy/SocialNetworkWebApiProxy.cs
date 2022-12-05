@@ -93,18 +93,6 @@ namespace SocialNetwork.WebApi.Proxy
             return new UserDto();
         }
 
-        public async Task<int> GetUserIdByUsername(string username)
-        {
-            var result = await _client.GetAsync($"api/user/GetUserIdByUsername/{username}");
-
-            if (result.IsSuccessStatusCode)
-            {
-                return int.Parse(await result.Content.ReadAsStringAsync());
-            }
-
-            return 0;
-        }
-
         #endregion
 
         #region Post
@@ -211,7 +199,7 @@ namespace SocialNetwork.WebApi.Proxy
 
         #region Follow
 
-        public async Task<StatusCodeHandler> AddNewFollow(FollowModel followModel)
+        public async Task<StatusCodeHandler<FollowDto>> AddNewFollow(FollowModel followModel)
         {
             var bodyContent = new StringContent(JsonConvert.SerializeObject(followModel), Encoding.UTF8, "application/json");
             var result = await _client.PostAsync($"api/follow/AddNewFollow", bodyContent);
@@ -219,12 +207,12 @@ namespace SocialNetwork.WebApi.Proxy
             if (result.IsSuccessStatusCode)
             {
                 var content = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<StatusCodeHandler>(content);
+                var data = JsonConvert.DeserializeObject<StatusCodeHandler<FollowDto>>(content);
 
                 return data;
             }
 
-            return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to follow {followModel.UserToFollow}.");
+            return new StatusCodeHandler<FollowDto>(400, $"Something went wrong when trying to follow {followModel.UserToFollow}.");
         }
 
         public async Task<StatusCodeHandler> RemoveFollowing(FollowDto followDto)

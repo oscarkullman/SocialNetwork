@@ -11,7 +11,5 @@ namespace WebAPI.Infrastructure.Services
         Task<ICollection<User>> GetAllUsers(UserSpecification spec);
 
         Task<User?> GetUserByUsername(string username);
-
-        Task<int> GetUserIdByUsername(string username);
     }
 }

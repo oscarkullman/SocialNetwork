@@ -17,12 +17,12 @@ namespace WebAPI.Infrastructure.Repositories
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<StatusCodeHandler> AddNewFollowing(Follow follow)
+        public async Task<StatusCodeHandler<Follow>> AddNewFollowing(Follow follow)
         {
             await _context.AddAsync(follow);
             await _unitOfWork.SaveChangesAsync();
             
-            return new StatusCodeHandler(200, $"Successfully started following {follow.Username}.");
+            return new StatusCodeHandler<Follow>(200, $"Successfully started following {follow.Username}.", follow);
         }
 
         public async Task<StatusCodeHandler> RemoveFollowing(Follow follow)

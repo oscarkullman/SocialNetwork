@@ -39,13 +39,5 @@ namespace WebAPI.Controllers
 
             return Ok(_mapper.Map<UserDto>(user));
         }
-
-        [HttpGet("GetUserIdByUsername/{username}")]
-        public async Task<ActionResult<int>> GetUserIdByUsername(string username)
-        {
-            var userId = await _userService.GetUserIdByUsername(username);
-
-            return Ok(userId);
-        }
     }
 }

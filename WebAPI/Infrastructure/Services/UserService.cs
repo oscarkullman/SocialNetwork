@@ -30,12 +30,5 @@ namespace WebAPI.Infrastructure.Services
             
             return await _userRepository.QueryFirstWithSpec(spec);
         }
-
-        public async Task<int> GetUserIdByUsername(string username)
-        {
-            var user = await _userRepository.QueryFirst(x => x.Username == username);
-
-            return user.Id;
-        }
     }
 }

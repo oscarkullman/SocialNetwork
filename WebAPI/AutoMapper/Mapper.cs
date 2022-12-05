@@ -16,6 +16,7 @@ namespace WebAPI.AutoMapper
             CreateMap<User, UserDto>();
             CreateMap<Post, PostDto>();
             CreateMap<StatusCodeHandler<Post>, StatusCodeHandler<PostDto>>();
+            CreateMap<StatusCodeHandler<Follow>, StatusCodeHandler<FollowDto>>();
             CreateMap<Follow, FollowDto>();
             CreateMap<Message, MessageDto>();
         }
