@@ -3,14 +3,13 @@
 <div class="wall-content">
 	@if (!IsLoading)
 	{
-		<h3>Welcome, @(_loggedInUser)!</h3>
+		<h3 class="wall-content__welcome-message">Welcome, @(_loggedInUser)!</h3>
 		<br />
 		
 		<EditForm model="@PostModel" OnSubmit="@PublishPost">
 			<textarea class="wall-content__text" placeholder="What are you up to today?" @bind="PostModel.Content" required></textarea>
 			<button class="wall-content__submit" type="submit">Post</button>
 		</EditForm>
-		<hr />
 
 		@foreach(var post in Posts)
 		{
@@ -40,8 +39,8 @@
 				}
 				<p>@post.Content</p>
 			</div>
-			<hr />
 		}
+		<br />
 	}
 	else
 	{

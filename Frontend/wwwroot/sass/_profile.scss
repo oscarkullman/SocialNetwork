@@ -19,17 +19,15 @@
         background-color: #ffffff;
         border: 3px solid #1877f2;
         border-radius: 4px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-bottom: 15px;
 
         &__close {
             border: none;
             background: #ffffff;
             font-size: 30px;
-            width: 1.2vw;
             float: right;
             color: #1877f2;
+            margin-right: 15px;
+            margin-top: 5px;
 
             &:hover {
                 color: #D22B2B;
@@ -37,7 +35,7 @@
         }
 
         &__text {
-            margin-top: 5px;
+            margin: 15px;
             width: 400px;
             height: 150px;
             resize: none;
@@ -48,11 +46,13 @@
             border: 2px solid #ffffff;
             background-color: #1877f2;
             padding: 20px;
-            width: 100%;
+            width: 94%;
             border-radius: 6px;
             font-size: 20px;
             line-height: 5px;
-            margin-top: 10px;
+            margin-bottom: 3%;
+            margin-right: 3%;
+            margin-left: 3%;
 
             &:hover {
                 background-color: #ffffff;
