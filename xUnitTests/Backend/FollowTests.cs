@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Entities;
@@ -43,7 +44,7 @@ namespace xUnitTests.Backend
             
         }
         [Fact]
-        public void ShouldGetFollows()
+        public void ShouldBeAbleToGetAllFollowings()
         {
             //Assert
             var followRepository = new Mock<IFollowRepository>();
@@ -64,11 +65,11 @@ namespace xUnitTests.Backend
         [InlineData("Kullen22")]
         [InlineData("Romme1337")]
         [InlineData("Anonym")]
-        public void ShouldGetUserFollowersCount(string username)
+        public void ShouldGetUserFollowingsCount(string username)
         {
             //Setup
             var followRepository = new Mock<IFollowRepository>();
-                followRepository.Setup(x => x.Query(x => x.Username == username).Result)
+                followRepository.Setup(x => x.Query(It.IsAny<Expression<Func<Follow, bool>>>()).Result)
                 .Returns(_follows.Where(x => x.Username.ToLower() == username.ToLower()).ToList());
 
             var userService = new Mock<IUserService>();
@@ -76,10 +77,10 @@ namespace xUnitTests.Backend
             //Act
             var followService = new FollowService(followRepository.Object, userService.Object);
 
-            var userFollowersCount = (followService.GetUserFollowersCount(username).Result);
+            var userFollowingCount = (followService.GetUserFollowersCount(username).Result);
 
             //Assert
-            Assert.Equal(1, userFollowersCount);
+            Assert.Equal(1, userFollowingCount);
         }
     }
 }

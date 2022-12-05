@@ -58,7 +58,6 @@ namespace Frontend.Pages
             NavigationManager.NavigateTo($"/profile/{username}", true);
         }
 
-
         private void ToggleMessageDialog()
         {
             ShowDialog = !ShowDialog;
@@ -104,22 +103,20 @@ namespace Frontend.Pages
 
         private async Task SendMessage()
         {
-            if (!string.IsNullOrEmpty(MessageModel.Content))
+            MessageModel.Sender = LoggedInUser.Username;
+            MessageModel.Reciever = ProfileUser.Username;
+
+            var result = await _proxy.SendMessage(MessageModel);
+
+            if (result.IsSuccessful)
             {
-                MessageModel.Sender = LoggedInUser.Username;
-                MessageModel.Reciever = ProfileUser.Username;
-
-                var result = await _proxy.SendMessage(MessageModel);
-
-                if (result.IsSuccessful)
-                {
-                    ToggleMessageDialog();
-                    MessageModel = new();
-                    return;
-                }
-
-                await JSRuntime.InvokeVoidAsync("alertMessage", "An error occured when sending direct message.");
+                ToggleMessageDialog();
+                MessageModel = new();
+                await JSRuntime.InvokeVoidAsync("alertMessage", $"Your message to {ProfileUser.Username} successfully.");
+                return;
             }
+
+            await JSRuntime.InvokeVoidAsync("alertMessage", "An error occured when sending direct message.");
         }
 
         protected override async Task OnInitializedAsync()
