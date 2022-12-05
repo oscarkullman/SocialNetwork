@@ -2,7 +2,6 @@
 using SocialNetwork.Classes.Models;
 using WebAPI.Entities;
 using WebAPI.Infrastructure.Repositories;
-using WebAPI.Repositories;
 
 namespace WebAPI.Infrastructure.Services
 {

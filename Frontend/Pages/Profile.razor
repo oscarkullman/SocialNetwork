@@ -12,11 +12,13 @@
 		{
 			<div class="message-wrapper">
 				<div class="message-wrapper__profile-dialog">
-					<button class="message-wrapper__profile-dialog__close" onclick="@ToggleMessageDialog">✖</button>
-					<br>
-					<textarea class="message-wrapper__profile-dialog__text" placeholder="Send a private message..." @bind="MessageModel.Content" required></textarea>
-					<br />
-					<button class="message-wrapper__profile-dialog__button" onclick="@SendMessage">Send</button>
+					<EditForm Model="@MessageModel" OnValidSubmit="@SendMessage">
+						<button class="message-wrapper__profile-dialog__close" onclick="@ToggleMessageDialog">✖</button>
+						<br>
+						<textarea class="message-wrapper__profile-dialog__text" placeholder="Send a private message to @ProfileUser.Username..." @bind="MessageModel.Content" required></textarea>
+						<br />
+						<button class="message-wrapper__profile-dialog__button" type="submit">Send</button>
+					</EditForm>
 				</div>
 			</div>			
 		}
