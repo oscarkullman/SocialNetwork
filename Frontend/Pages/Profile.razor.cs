@@ -83,8 +83,26 @@ namespace Frontend.Pages
             UserFollowersCount++;
             LoggedInUser.Follows.Add(new FollowDto
             {
+                UserId = LoggedInUser.Id,
                 Username = ProfileUser.Username
             });
+            StateHasChanged();
+        }
+
+        private async Task UnFollowUser()
+        {
+            var follow = LoggedInUser.Follows.FirstOrDefault(x => x.UserId == LoggedInUser.Id && x.Username == ProfileUser.Username);
+
+            var result = await _proxy.RemoveFollowing(follow);
+
+            if (!result.IsSuccessful)
+            {
+                await JSRuntime.InvokeVoidAsync("alertMessage", $"Something went wrong when trying to unfollow {ProfileUser.Username}");
+                return;
+            }
+
+            UserFollowersCount--;
+            LoggedInUser.Follows.Remove(follow);
             StateHasChanged();
         }
 

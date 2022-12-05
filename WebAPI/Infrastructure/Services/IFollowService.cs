@@ -9,7 +9,7 @@ namespace WebAPI.Infrastructure.Services
     {
         Task<StatusCodeHandler> AddNewFollow(FollowModel followModel);
 
-        Task<StatusCodeHandler> RemoveFollow(FollowDto followDto);
+        Task<StatusCodeHandler> RemoveFollowing(int userId, string username);
 
         Task<ICollection<Follow>> GetAllFollowings();
 

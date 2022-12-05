@@ -93,6 +93,18 @@ namespace SocialNetwork.WebApi.Proxy
             return new UserDto();
         }
 
+        public async Task<int> GetUserIdByUsername(string username)
+        {
+            var result = await _client.GetAsync($"api/user/GetUserIdByUsername/{username}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                return int.Parse(await result.Content.ReadAsStringAsync());
+            }
+
+            return 0;
+        }
+
         #endregion
 
         #region Post
@@ -217,8 +229,7 @@ namespace SocialNetwork.WebApi.Proxy
 
         public async Task<StatusCodeHandler> RemoveFollowing(FollowDto followDto)
         {
-            var bodyContent = new StringContent(JsonConvert.SerializeObject(followDto), Encoding.UTF8, "application/json");
-            var result = await _client.PostAsync($"api/follow/RemoveFollowing", bodyContent);
+            var result = await _client.DeleteAsync($"api/follow/RemoveFollowing/{followDto.UserId}/{followDto.Username}");
 
             if (result.IsSuccessStatusCode)
             {

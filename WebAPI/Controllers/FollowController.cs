@@ -31,10 +31,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("RemoveFollowing")]
-        public async Task<ActionResult<StatusCodeHandler>> RemoveFollowing([FromBody]FollowDto followDto)
+        [HttpDelete("RemoveFollowing/{userId}/{username}")]
+        public async Task<ActionResult<StatusCodeHandler>> RemoveFollowing(int userId, string username)
         {
-            var result = await _followService.RemoveFollow(followDto);
+            var result = await _followService.RemoveFollowing(userId, username);
 
             if (result.IsSuccessful)
             {

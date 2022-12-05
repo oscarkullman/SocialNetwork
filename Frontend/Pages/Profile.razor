@@ -28,7 +28,7 @@
 				<br />
 				@if (LoggedInUser.Follows.Any(x => x.Username == ProfileUser.Username))
 				{
-					<p>You are already following @ProfileUser.Username</p>
+					<button onclick="@UnFollowUser">Unfollow</button><br />
 				}
 				else
 				{

@@ -8,8 +8,10 @@ namespace WebAPI.Infrastructure.Services
     {
         Task AddNewUser(RegisterModel registerModel);
 
+        Task<ICollection<User>> GetAllUsers(UserSpecification spec);
+
         Task<User?> GetUserByUsername(string username);
 
-        Task<ICollection<User>> GetAllUsers(UserSpecification spec);
+        Task<int> GetUserIdByUsername(string username);
     }
 }

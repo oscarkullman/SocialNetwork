@@ -39,9 +39,9 @@ namespace WebAPI.Infrastructure.Services
             return new StatusCodeHandler(400, $"Something went wrong when trying to follow {followModel.UserToFollow}");
         }
 
-        public async Task<StatusCodeHandler> RemoveFollow(FollowDto followDto)
+        public async Task<StatusCodeHandler> RemoveFollowing(int userId, string username)
         {
-            var follow = await _followRepository.QueryFirst(x => x.UserId == followDto.UserId && x.Username == followDto.Username);
+            var follow = await _followRepository.QueryFirst(x => x.UserId == userId && x.Username == username);
 
             if (follow == null) return new StatusCodeHandler(400, "Something went wrong when trying to unfollow user.");
 
