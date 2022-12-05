@@ -61,17 +61,23 @@
                 color: #1877f2;
                 cursor: pointer;
 
-        & h3 {
-            color: black;
-            text-decoration: none;
-        }
+                &:hover {
+                    color: #1877f2;
+                    text-decoration: underline;
+                }
+            }
 
-        a {
-            color: #1877f2;
-            text-decoration: none;
+            & h3 {
+                margin-left: 10%;
+            }
 
-            &:hover {
-                text-decoration: underline;
+            & p {
+                margin-top: 15px;
+                background: #f0f2f5;
+                width: 80%;
+                margin: auto;
+                padding: 15px;
+                border-radius: 8px;
             }
         }
     }
