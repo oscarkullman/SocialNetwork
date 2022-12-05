@@ -215,6 +215,22 @@ namespace SocialNetwork.WebApi.Proxy
             return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to follow {followModel.UserToFollow}.");
         }
 
+        public async Task<StatusCodeHandler> RemoveFollowing(FollowDto followDto)
+        {
+            var bodyContent = new StringContent(JsonConvert.SerializeObject(followDto), Encoding.UTF8, "application/json");
+            var result = await _client.PostAsync($"api/follow/RemoveFollowing", bodyContent);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<StatusCodeHandler>(content);
+
+                return data;
+            }
+
+            return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to unfollow {followDto.Username}.");
+        }
+
         public async Task<int> GetUserFollowersCount(string username)
         {
             var result = await _client.GetAsync($"api/follow/GetUserFollowersCount/{username}");

@@ -24,5 +24,13 @@ namespace WebAPI.Infrastructure.Repositories
             
             return new StatusCodeHandler(200, $"Successfully started following {follow.Username}.");
         }
+
+        public async Task<StatusCodeHandler> RemoveFollowing(Follow follow)
+        {
+            _context.Remove(follow);
+            await _unitOfWork.SaveChangesAsync();
+
+            return new StatusCodeHandler(200, $"Stopped following {follow.Username} successfully.");
+        }
     }
 }

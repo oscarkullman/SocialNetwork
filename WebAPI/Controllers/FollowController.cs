@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Classes;
 using SocialNetwork.Classes.Models;
+using SocialNetwork.Classes.User;
 using WebAPI.Infrastructure.Services;
 
 namespace WebAPI.Controllers
@@ -27,6 +28,19 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             
+            return BadRequest(result);
+        }
+
+        [HttpDelete("RemoveFollowing")]
+        public async Task<ActionResult<StatusCodeHandler>> RemoveFollowing([FromBody]FollowDto followDto)
+        {
+            var result = await _followService.RemoveFollow(followDto);
+
+            if (result.IsSuccessful)
+            {
+                return Ok(result);
+            }
+
             return BadRequest(result);
         }
 

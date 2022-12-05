@@ -7,5 +7,7 @@ namespace WebAPI.Infrastructure.Repositories
     public interface IFollowRepository : IRepository<Follow>
     {
         Task<StatusCodeHandler> AddNewFollowing(Follow follow);
+
+        Task<StatusCodeHandler> RemoveFollowing(Follow follow);
     }
 }
