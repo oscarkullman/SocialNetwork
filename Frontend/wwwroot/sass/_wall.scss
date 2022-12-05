@@ -35,7 +35,7 @@
         font-size: 20px;
         line-height: 5px;
         margin-top: 10px;
-        margin-bottom: 1%;
+        margin-bottom: 2%;
 
         &:hover {
             background-color: #ffffff;
@@ -45,16 +45,21 @@
     }
 
     &__posts {
-        background: #ffffff;
-        height: 100%;
-        border-radius: 8px;
-        padding: 1% 4%;
-        margin-bottom: 1%;
-        border: 1px solid #dddfe2;
         width: 50%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+        margin: auto;
+        margin-bottom: 1%;
+
+        &__post {
+            background: #ffffff;
+            border: 1px solid lightgrey;
+            padding: 15px;
+            border-radius: 8px;
+
+
+            & a {
+                text-decoration: none;
+                color: #1877f2;
+                cursor: pointer;
 
         & h3 {
             color: black;
