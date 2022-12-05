@@ -10,12 +10,15 @@
 	{
 		@if (ShowDialog)
 		{
-			<div class="profile-dialog">
-				<textarea class="profile-dialog__text" placeholder="Send a private message..." @bind="MessageModel.Content" required></textarea>
-				<br />
-				<button class="profile-dialog__button" onclick="@SendMessage">Send</button>
-				<button onclick="@ToggleMessageDialog">Close</button>
-			</div>
+			<div class="message-wrapper">
+				<div class="message-wrapper__profile-dialog">
+					<button class="message-wrapper__profile-dialog__close" onclick="@ToggleMessageDialog">✖</button>
+					<br>
+					<textarea class="message-wrapper__profile-dialog__text" placeholder="Send a private message..." @bind="MessageModel.Content" required></textarea>
+					<br />
+					<button class="message-wrapper__profile-dialog__button" onclick="@SendMessage">Send</button>
+				</div>
+			</div>			
 		}
 		
 		<div class="profile-content__info">
@@ -23,19 +26,26 @@
 			<br />
 			<h4>@ProfileUser.FirstName @ProfileUser.LastName</h4>
 			<h4>Followers @UserFollowersCount - Following @ProfileUser.Follows?.Count</h4>
+			<div class="profile-content__info__buttons">
 			@if (LoggedInUser.Username != ProfileUser.Username)
 			{
-				<br />
-				@if (LoggedInUser.Follows.Any(x => x.Username == ProfileUser.Username))
-				{
-					<button onclick="@UnFollowUser">Unfollow</button><br />
-				}
-				else
-				{
-					<button onclick="@FollowUser">Follow</button><br />
-				}
-				<button onclick="@ToggleMessageDialog">Send Direct Message</button>
+				
+					@if (LoggedInUser.Follows.Any(x => x.Username == ProfileUser.Username))
+					{
+						<button class="profile-content__info__buttons__unfollow-user" onclick="@UnFollowUser">Unfollow</button>
+
+						<br />
+					}
+					else
+					{
+						<button class="profile-content__info__buttons__follow-user" onclick="@FollowUser">Follow</button>
+
+						<br />
+					}
+					<button class="profile-content__info__buttons__send-message" onclick="@ToggleMessageDialog">Send Message</button>
+				
 			}
+			</div>
 		</div>
 		<br />
 		<EditForm model="@PostModel" OnSubmit="@PostOnWall">
@@ -61,7 +71,9 @@
 		</div>
 	}
 	else
-	{
-		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	{	
+		<div class="profile-content__info">
+			<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+		</div>
 	}
 </div>
