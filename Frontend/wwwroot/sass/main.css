@@ -489,34 +489,62 @@
   color: #1877f2;
 }
 
-.profile-dialog {
+.message-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  background: rgba(0, 0, 0, 0.7);
+}
+.message-wrapper__profile-dialog {
   position: absolute;
-  padding: 15px 15px;
   height: fit-content;
   width: fit-content;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
-  border: 1px solid black;
+  border: 3px solid #1877f2;
   border-radius: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
 }
-.profile-dialog__text {
+.message-wrapper__profile-dialog__close {
+  border: none;
+  background: #ffffff;
+  font-size: 30px;
+  width: 1.2vw;
+  float: right;
+  color: #1877f2;
+}
+.message-wrapper__profile-dialog__close:hover {
+  color: #D22B2B;
+}
+.message-wrapper__profile-dialog__text {
+  margin-top: 5px;
   width: 400px;
   height: 150px;
   resize: none;
 }
-.profile-dialog__button {
+.message-wrapper__profile-dialog__button {
   color: #ffffff;
-  display: block;
-  margin: auto;
   border: 2px solid #ffffff;
   background-color: #1877f2;
-  padding: 2% 1%;
+  padding: 20px;
   width: 100%;
   border-radius: 6px;
   font-size: 20px;
-  line-height: 36px;
+  line-height: 5px;
+  margin-top: 10px;
+}
+.message-wrapper__profile-dialog__button:hover {
+  background-color: #ffffff;
+  border: 2px solid #1877f2;
+  color: #1877f2;
 }
 
 .profile-content {
@@ -534,6 +562,64 @@
   margin: auto;
   text-align: center;
   border: 1px solid lightgrey;
+}
+.profile-content__info__buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.profile-content__info__buttons__follow-user {
+  display: inline-block;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  background-color: #1877f2;
+  padding: 20px;
+  width: 20%;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 5px;
+  margin-top: 10px;
+}
+.profile-content__info__buttons__follow-user:hover {
+  background-color: #ffffff;
+  border: 2px solid #1877f2;
+  color: #1877f2;
+}
+.profile-content__info__buttons__unfollow-user {
+  display: inline-block;
+  color: #1877f2;
+  border: 2px solid #1877f2;
+  background-color: #ffffff;
+  padding: 20px;
+  width: 20%;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 5px;
+  margin-top: 10px;
+}
+.profile-content__info__buttons__unfollow-user:hover {
+  background-color: #D22B2B;
+  border: 2px solid #D22B2B;
+  color: #ffffff;
+}
+.profile-content__info__buttons__send-message {
+  display: inline-block;
+  color: #ffffff;
+  display: inline-block;
+  border: 2px solid #ffffff;
+  background-color: #1877f2;
+  padding: 20px;
+  width: 20%;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 5px;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.profile-content__info__buttons__send-message:hover {
+  background-color: #ffffff;
+  border: 2px solid #1877f2;
+  color: #1877f2;
 }
 .profile-content__text {
   border: 1px solid #dddfe2;

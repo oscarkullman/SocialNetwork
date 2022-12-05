@@ -1,32 +1,65 @@
-﻿.profile-dialog {
-    position: absolute;
-    padding: 15px 15px;
-    height: fit-content;
-    width: fit-content;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    border: 1px solid black;
-    border-radius: 4px;
+﻿
+.message-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    background: rgba(0, 0, 0, 0.7);
 
-    &__text {
-        width: 400px;
-        height: 150px;
-        resize: none;
-    }
+    &__profile-dialog {
+        position: absolute;
+        height: fit-content;
+        width: fit-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        border: 3px solid #1877f2;
+        border-radius: 4px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
 
-    &__button {
-        color: #ffffff;
-        display: block;
-        margin: auto;
-        border: 2px solid #ffffff;
-        background-color: #1877f2;
-        padding: 2% 1%;
-        width: 100%;
-        border-radius: 6px;
-        font-size: 20px;
-        line-height: 36px;
+        &__close {
+            border: none;
+            background: #ffffff;
+            font-size: 30px;
+            width: 1.2vw;
+            float: right;
+            color: #1877f2;
+
+            &:hover {
+                color: #D22B2B;
+            }
+        }
+
+        &__text {
+            margin-top: 5px;
+            width: 400px;
+            height: 150px;
+            resize: none;
+        }
+
+        &__button {
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            background-color: #1877f2;
+            padding: 20px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 20px;
+            line-height: 5px;
+            margin-top: 10px;
+
+            &:hover {
+                background-color: #ffffff;
+                border: 2px solid #1877f2;
+                color: #1877f2;
+            }
+        }
     }
 }
 
@@ -45,6 +78,72 @@
         margin: auto;
         text-align: center;
         border: 1px solid lightgrey;
+
+
+        &__buttons {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            &__follow-user {
+                display: inline-block;
+                color: #ffffff;
+                border: 2px solid #ffffff;
+                background-color: #1877f2;
+                padding: 20px;
+                width: 20%;
+                border-radius: 6px;
+                font-size: 20px;
+                line-height: 5px;
+                margin-top: 10px;
+
+                &:hover {
+                    background-color: #ffffff;
+                    border: 2px solid #1877f2;
+                    color: #1877f2;
+                }
+            }
+
+            &__unfollow-user {
+                display: inline-block;
+                color: #1877f2;
+                border: 2px solid #1877f2;
+                background-color: #ffffff;
+                padding: 20px;
+                width: 20%;
+                border-radius: 6px;
+                font-size: 20px;
+                line-height: 5px;
+                margin-top: 10px;
+
+                &:hover {
+                    background-color: #D22B2B;
+                    border: 2px solid #D22B2B;
+                    color: #ffffff;
+                }
+            }
+
+            &__send-message {
+                display: inline-block;
+                color: #ffffff;
+                display: inline-block;
+                border: 2px solid #ffffff;
+                background-color: #1877f2;
+                padding: 20px;
+                width: 20%;
+                border-radius: 6px;
+                font-size: 20px;
+                line-height: 5px;
+                margin-top: 10px;
+                margin-left: 15px;
+
+                &:hover {
+                    background-color: #ffffff;
+                    border: 2px solid #1877f2;
+                    color: #1877f2;
+                }
+            }
+        }
     }
 
     &__text {
