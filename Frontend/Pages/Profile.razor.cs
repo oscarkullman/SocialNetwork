@@ -112,7 +112,7 @@ namespace Frontend.Pages
             {
                 ToggleMessageDialog();
                 MessageModel = new();
-                await JSRuntime.InvokeVoidAsync("alertMessage", $"Your message to {ProfileUser.Username} successfully.");
+                await JSRuntime.InvokeVoidAsync("alertMessage", $"Your message to {ProfileUser.Username} was sent successfully.");
                 return;
             }
 
