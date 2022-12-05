@@ -793,6 +793,72 @@
   border-radius: 8px;
 }
 
+.messages-wrapper {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.current-message {
+  width: auto;
+  height: 100%;
+  vertical-align: top;
+  margin-right: 5%;
+  margin-top: 1%;
+  width: 35%;
+}
+.current-message__content {
+  border: solid 1px lightgrey;
+  border-radius: 8px;
+  height: 553px;
+  background-color: white;
+}
+.current-message__content__text {
+  border: solid 1px lightgrey;
+  width: 90%;
+  margin: auto;
+  border-radius: 8px;
+}
+
+.messages {
+  width: 35%;
+  margin-top: 1%;
+  margin-left: 5%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 643px;
+}
+
+.one-message {
+  margin: 1%;
+  border: solid 1px lightgrey;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.message-button {
+  color: #ffffff;
+  display: block;
+  margin: auto;
+  border: 2px solid #ffffff;
+  background-color: #1877f2;
+  padding: 1% 1%;
+  width: 35%;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 36px;
+  margin-bottom: 1%;
+}
+.message-button:hover {
+  background-color: #ffffff;
+  border: 2px solid #1877f2;
+  color: #1877f2;
+}
+
+.message-title {
+  text-align: center;
+}
+
 body {
   background-color: #f0f2f5;
   font-family: "Trebuchet MS", sans-serif;
