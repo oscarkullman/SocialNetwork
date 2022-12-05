@@ -8,7 +8,7 @@
 <div class="profile-content">
 	@if (!IsLoading)
 	{
-		@if (ShowDialog)
+		@if (ShowMessageDialog)
 		{
 			<div class="message-wrapper">
 				<div class="message-wrapper__profile-dialog">
@@ -22,12 +22,33 @@
 				</div>
 			</div>			
 		}
+
+		@if (ShowFollowingsDialog)
+		{
+			<div class="followings-wrapper">
+				<div class="followings-wrapper__profile-dialog">
+					<button class="followings-wrapper__profile-dialog__close" onclick="@ToggleFollowingsDialog">✖</button>
+					@foreach (var follow in ProfileUser.Follows)
+					{
+						<h3><a href="/profile/@follow.Username" onclick="@(() => GoToProfile(follow.Username))">@follow.Username</a></h3>
+						<br />
+					}
+				</div>
+			</div>			
+		}
 		
 		<div class="profile-content__info">
 			<h2>@(ProfileUser.Username)'s profile</h2>
 			<br />
 			<h4>@ProfileUser.FirstName @ProfileUser.LastName</h4>
-			<h4>Followers @UserFollowersCount - Following @ProfileUser.Follows?.Count</h4>
+			@if (ProfileUser.Follows.Count > 0)
+			{
+				<h4>Followers @UserFollowersCount - <a class="profile-content__info__link" onclick="@ToggleFollowingsDialog">Following @ProfileUser.Follows?.Count</a></h4>
+			}
+			else
+			{
+				<h4>Followers @UserFollowersCount - Following @ProfileUser.Follows?.Count</h4>
+			}
 			<div class="profile-content__info__buttons">
 			@if (LoggedInUser.Username != ProfileUser.Username)
 			{

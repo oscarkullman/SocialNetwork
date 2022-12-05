@@ -33,7 +33,9 @@ namespace Frontend.Pages
 
         public bool IsLoading { get; set; }
 
-        public bool ShowDialog { get; set; }
+        public bool ShowMessageDialog { get; set; }
+
+        public bool ShowFollowingsDialog { get; set; }
 
         private SocialNetworkWebApiProxy _proxy = new SocialNetworkWebApiProxy();
 
@@ -60,7 +62,12 @@ namespace Frontend.Pages
 
         private void ToggleMessageDialog()
         {
-            ShowDialog = !ShowDialog;
+            ShowMessageDialog = !ShowMessageDialog;
+        }
+
+        private void ToggleFollowingsDialog()
+        {
+            ShowFollowingsDialog = !ShowFollowingsDialog;
         }
 
         private async Task FollowUser()
@@ -112,7 +119,7 @@ namespace Frontend.Pages
             {
                 ToggleMessageDialog();
                 MessageModel = new();
-                await JSRuntime.InvokeVoidAsync("alertMessage", $"Your message to {ProfileUser.Username} successfully.");
+                await JSRuntime.InvokeVoidAsync("alertMessage", $"Your message to {ProfileUser.Username} was sent successfully.");
                 return;
             }
 
