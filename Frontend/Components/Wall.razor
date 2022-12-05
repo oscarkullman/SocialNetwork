@@ -11,34 +11,39 @@
 			<button class="wall-content__submit" type="submit">Post</button>
 		</EditForm>
 
+		
 		@foreach(var post in Posts)
 		{
 			<div class="wall-content__posts">
-				@if (post.Username != _loggedInUser && post.WallOwner == _loggedInUser)
-				{
-					<h3><a href="/profile/@post.Username">@post.Username</a> posted on your wall</h3>
-				}
-				else if (post.Username != _loggedInUser && post.WallOwner != _loggedInUser)
-				{
-					if (post.WallOwner == post.Username)
+				<div class="wall-content__posts__post">
+					@if (post.Username != _loggedInUser && post.WallOwner == _loggedInUser)
 					{
-						<h3><a href="/profile/@post.Username">@post.Username</a></h3>
+						<h3><a href="/profile/@post.Username">@post.Username</a> posted on your wall</h3>
+					}
+					else if (post.Username != _loggedInUser && post.WallOwner != _loggedInUser)
+					{
+						if (post.WallOwner == post.Username)
+						{
+							<h3><a href="/profile/@post.Username">@post.Username</a></h3>
+						}
+						else
+						{
+							<h3><a href="/profile/@post.Username">@post.Username</a> posted on <a href="/profile/@post.WallOwner">@(post.WallOwner)'s</a> wall</h3>
+						}
+					}
+					else if (post.Username == _loggedInUser && post.WallOwner != _loggedInUser)
+					{
+						<h3>You posted on <a href="/profile/@post.WallOwner">@(post.WallOwner)'s</a> wall</h3>
 					}
 					else
 					{
-						<h3><a href="/profile/@post.Username">@post.Username</a> posted on <a href="/profile/@post.WallOwner">@(post.WallOwner)'s</a> wall</h3>
+						<h3><a href="/profile/@post.Username">@post.Username</a></h3>
 					}
-				}
-				else if (post.Username == _loggedInUser && post.WallOwner != _loggedInUser)
-				{
-					<h3>You posted on <a href="/profile/@post.WallOwner">@(post.WallOwner)'s</a> wall</h3>
-				}
-				else
-				{
-					<h3><a href="/profile/@post.Username">@post.Username</a></h3>
-				}
-				<p>@post.Content</p>
+					<p>@post.Content</p>
+
 			</div>
+			</div>
+			
 		}
 		<br />
 	}

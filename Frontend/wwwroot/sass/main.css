@@ -500,7 +500,7 @@
   font-size: 20px;
   line-height: 5px;
   margin-top: 10px;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 }
 .wall-content__submit:hover {
   background-color: #ffffff;
@@ -508,20 +508,35 @@
   color: #1877f2;
 }
 .wall-content__posts {
-  background: #ffffff;
-  height: 100%;
-  border-radius: 8px;
-  padding: 3%;
-  margin-bottom: 1%;
-  border: 1px solid #dddfe2;
   width: 50%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+  margin-bottom: 1%;
 }
-.wall-content__posts h3, .wall-content__posts a {
-  color: #1877f2;
+.wall-content__posts__post {
+  background: #ffffff;
+  border: 1px solid lightgrey;
+  padding: 15px;
+  border-radius: 8px;
+}
+.wall-content__posts__post a {
   text-decoration: none;
+  color: #1877f2;
+  cursor: pointer;
+}
+.wall-content__posts__post a:hover {
+  color: #1877f2;
+  text-decoration: underline;
+}
+.wall-content__posts__post h3 {
+  margin-left: 10%;
+}
+.wall-content__posts__post p {
+  margin-top: 15px;
+  background: #f0f2f5;
+  width: 80%;
+  margin: auto;
+  padding: 15px;
+  border-radius: 8px;
 }
 
 .message-wrapper {
@@ -687,7 +702,6 @@
   color: #1877f2;
 }
 .profile-content__posts {
-  margin-top: 4vh;
   width: 50%;
   margin: auto;
   margin-top: 5vh;
