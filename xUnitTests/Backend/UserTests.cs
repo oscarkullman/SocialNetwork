@@ -1,9 +1,5 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WebAPI.Entities;
 using WebAPI.Infrastructure.Repositories;
 using WebAPI.Infrastructure.Services;
 using WebAPI.Infrastructure.Specification;
@@ -22,29 +18,32 @@ namespace xUnitTests.Backend
             {
                 new User
                 {
-                    Id = 0,
+                    Id = 1,
                     FirstName = "Max",
                     LastName = "Almroth",
                     Username = "Masken1",
                     Email = "max@mail.com",
+                    Follows = new List<Follow>(),
                     DateRegistered = DateTime.Now
                 },
                 new User
                 {
-                    Id = 1,
+                    Id = 2,
                     FirstName = "Roman",
                     LastName = "Parker",
                     Username = "RomPa23",
                     Email = "roman@mail.com",
+                    Follows = new List<Follow>(),
                     DateRegistered = DateTime.Now.AddDays(1)
                 },
                 new User
                 {
-                    Id = 2,
+                    Id = 3,
                     FirstName = "Oscar",
                     LastName = "Kullman",
                     Username = "Kullen12",
                     Email = "oscar@mail.com",
+                    Follows = new List<Follow>(),
                     DateRegistered = DateTime.Now.AddDays(2)
                 }
             };
@@ -53,12 +52,12 @@ namespace xUnitTests.Backend
         [Fact]
         public void ShouldGetAllUsers()
         {
-            // Setup UserReporitory mockup
+            // Setup
             var uParams = new UserParams();
             var specification = new UserSpecification(uParams);
 
             var userRepository = new Mock<IUserRepository>();
-            userRepository.Setup(x => x.QueryWithSpec(specification).Result)
+            userRepository.Setup(x => x.QueryWithSpec(It.IsAny<UserSpecification>()).Result)
                 .Returns(_users);
 
             // Act
@@ -76,12 +75,11 @@ namespace xUnitTests.Backend
         [InlineData("Kullen12")]
         public void ShouldBeAbleToGetUserByUsername(string username)
         {
-            // Setup UserReporitory mockup
-            var uParams = new UserParams();
-            var specification = new UserSpecification(uParams);
+            // Setup
+            var spec = new UserSpecification(x => x.Username == username);
 
             var userRepository = new Mock<IUserRepository>();
-            userRepository.Setup(x => x.QueryFirst(x => x.Username.ToLower() == username.ToLower()).Result)
+            userRepository.Setup(x => x.QueryFirstWithSpec(It.IsAny<UserSpecification>()).Result)
                 .Returns(_users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower()));
 
             // Act
@@ -90,7 +88,7 @@ namespace xUnitTests.Backend
             var getUserByUsername = userService.GetUserByUsername(username).Result;
 
             // Assert
-            Assert.True(getUserByUsername?.Username == username);
+            Assert.True(getUserByUsername.Username == username);
         }
     }
 }

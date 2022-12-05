@@ -27,7 +27,7 @@ namespace WebAPI.Infrastructure.Services
         public async Task<User?> GetUserByUsername(string username)
         {
             var spec = new UserSpecification(x => x.Username == username);
-            
+
             return await _userRepository.QueryFirstWithSpec(spec);
         }
     }

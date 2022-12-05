@@ -1,20 +1,18 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 using WebAPI.Entities;
 using WebAPI.Infrastructure.Repositories;
 using WebAPI.Infrastructure.Services;
 using WebAPI.Infrastructure.Specification;
 using WebAPI.Infrastructure.Specification.Params;
+using WebAPI.Models;
 
 namespace xUnitTests.Backend
 {
     public class PostTests
     {
         private List<Post> _posts;
+
         public PostTests()
         {
             _posts = new List<Post>{
@@ -58,12 +56,12 @@ namespace xUnitTests.Backend
         [InlineData("Kullen12")]
         public void ShouldGetPostsByUsername(string usernamne)
         {
-            //Setup PostRepository mockup
+            //Setup
             var postParams = new PostParams();
-            var postSpecification = new PostSpecification(postParams);
+            var spec = new PostSpecification(postParams);
 
             var postRepository = new Mock<IPostRepository>();
-            postRepository.Setup(x => x.QueryWithSpec(postSpecification).Result)
+            postRepository.Setup(x => x.QueryWithSpec(It.IsAny<PostSpecification>()).Result)
                 .Returns(_posts.Where(x => x.Username.ToLower() == usernamne.ToLower()).ToList());
 
             var userService = new Mock<IUserService>();
@@ -71,17 +69,17 @@ namespace xUnitTests.Backend
             //Act
             var postService = new PostService(postRepository.Object, userService.Object);
 
-            var getAllPosts = postService.GetPostsByUsername(postSpecification).Result;
+            var getPostsByUsername = postService.GetPostsByUsername(spec).Result;
 
             //Assert 
-            Assert.True(getAllPosts.Count == 1 && getAllPosts.ToList()[0].Username == usernamne);
+            Assert.True(getPostsByUsername.All(x => x.Username == usernamne));
         }
 
         [Fact]
         public void ShouldGetPostsByWallOwner()
         {
             var postRepository = new Mock<IPostRepository>();
-            postRepository.Setup(x => x.Query(x => x.WallOwner == "Masken1").Result)
+            postRepository.Setup(x => x.Query(It.IsAny<Expression<Func<Post, bool>>>()).Result)
                 .Returns(_posts.Where(x => x.WallOwner == "Masken1").ToList());
 
             var userService = new Mock<IUserService>();
@@ -92,7 +90,43 @@ namespace xUnitTests.Backend
             var getPostsByWallOwner = postService.GetPostsByWallOwner("Masken1").Result;
 
             //Assert 
-            Assert.True(getPostsByWallOwner.Count == 2);
+            Assert.True(getPostsByWallOwner.All(x => x.WallOwner == "Masken1"));
+        }
+
+        [Fact]
+        public void ShouldGetPostsByUserAndFollowings()
+        {
+            // Setup
+            var user = new User
+            {
+                Id = 1,
+                FirstName = "Max",
+                LastName = "Almroth",
+                Username = "Masken1",
+                Email = "max@mail.com",
+                Follows = new List<Follow>
+                {
+                    new Follow { Id = 1, Username = "Kullen12" }
+                },
+                DateRegistered = DateTime.Now
+            };
+
+            var postRepository = new Mock<IPostRepository>();
+            postRepository.Setup(x => x.Query(It.IsAny<Expression<Func<Post, bool>>>()).Result)
+                .Returns(_posts.Where(x => x.WallOwner == user.Username || 
+                        user.Follows.Select(p => p.Username).Contains(x.WallOwner)).ToList());
+
+            var userService = new Mock<IUserService>();
+            userService.Setup(x => x.GetUserByUsername(It.IsAny<string>()).Result)
+                .Returns(user);
+
+            // Act
+            var postService = new PostService(postRepository.Object, userService.Object);
+
+            var getPostsByUserAndFollowings = postService.GetPostsByUserAndFollowings("Masken1").Result;
+
+            // Assert
+            Assert.True(getPostsByUserAndFollowings.All(x => x.WallOwner == user.Username || user.Follows.Select(p => p.Username).Contains(x.WallOwner)));
         }
     }
 }
