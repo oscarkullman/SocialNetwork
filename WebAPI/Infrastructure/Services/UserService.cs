@@ -19,16 +19,16 @@ namespace WebAPI.Infrastructure.Services
             await _userRepository.AddNewUser(registerModel);
         }
 
+        public async Task<ICollection<User>> GetAllUsers(UserSpecification spec)
+        {
+            return await _userRepository.QueryWithSpec(spec);
+        }
+
         public async Task<User?> GetUserByUsername(string username)
         {
             var spec = new UserSpecification(x => x.Username == username);
             
             return await _userRepository.QueryFirstWithSpec(spec);
-        }
-
-        public async Task<ICollection<User>> GetAllUsers(UserSpecification spec)
-        {
-            return await _userRepository.QueryWithSpec(spec);
         }
     }
 }

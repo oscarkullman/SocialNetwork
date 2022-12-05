@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.Classes;
 using SocialNetwork.Classes.Models;
+using SocialNetwork.Classes.User;
 using WebAPI.Entities;
 using WebAPI.Infrastructure.Repositories;
 
@@ -18,7 +19,7 @@ namespace WebAPI.Infrastructure.Services
             _userService = userService;
         }
         
-        public async Task<StatusCodeHandler> AddNewFollow(FollowModel followModel)
+        public async Task<StatusCodeHandler<Follow>> AddNewFollow(FollowModel followModel)
         {
             var user = await _userService.GetUserByUsername(followModel.UserFollowing);
             
@@ -35,7 +36,18 @@ namespace WebAPI.Infrastructure.Services
                 return result;
             }
 
-            return new StatusCodeHandler(400, $"Something went wrong when trying to follow {followModel.UserToFollow}");
+            return new StatusCodeHandler<Follow>(400, $"Something went wrong when trying to follow {followModel.UserToFollow}");
+        }
+
+        public async Task<StatusCodeHandler> RemoveFollowing(int userId, string username)
+        {
+            var follow = await _followRepository.QueryFirst(x => x.UserId == userId && x.Username == username);
+
+            if (follow == null) return new StatusCodeHandler(400, "Something went wrong when trying to unfollow user.");
+
+            var result = await _followRepository.RemoveFollowing(follow);
+
+            return result;
         }
 
         public async Task<ICollection<Follow>> GetAllFollowings()

@@ -8,6 +8,8 @@ namespace SocialNetwork.Classes.User
 {
     public class FollowDto
     {
+        public int? UserId { get; set; }
+        
         public string? Username { get; set; }
     }
 }

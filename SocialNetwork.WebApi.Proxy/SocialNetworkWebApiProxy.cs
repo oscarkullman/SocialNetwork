@@ -199,10 +199,25 @@ namespace SocialNetwork.WebApi.Proxy
 
         #region Follow
 
-        public async Task<StatusCodeHandler> AddNewFollow(FollowModel followModel)
+        public async Task<StatusCodeHandler<FollowDto>> AddNewFollow(FollowModel followModel)
         {
             var bodyContent = new StringContent(JsonConvert.SerializeObject(followModel), Encoding.UTF8, "application/json");
             var result = await _client.PostAsync($"api/follow/AddNewFollow", bodyContent);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var content = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<StatusCodeHandler<FollowDto>>(content);
+
+                return data;
+            }
+
+            return new StatusCodeHandler<FollowDto>(400, $"Something went wrong when trying to follow {followModel.UserToFollow}.");
+        }
+
+        public async Task<StatusCodeHandler> RemoveFollowing(FollowDto followDto)
+        {
+            var result = await _client.DeleteAsync($"api/follow/RemoveFollowing/{followDto.UserId}/{followDto.Username}");
 
             if (result.IsSuccessStatusCode)
             {
@@ -212,7 +227,7 @@ namespace SocialNetwork.WebApi.Proxy
                 return data;
             }
 
-            return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to follow {followModel.UserToFollow}.");
+            return new StatusCodeHandler<PostDto>(400, $"Something went wrong when trying to unfollow {followDto.Username}.");
         }
 
         public async Task<int> GetUserFollowersCount(string username)
