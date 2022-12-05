@@ -7,7 +7,6 @@
 
 <h3>Messages</h3>
 <hr />
-<div class="wrapper">	
 @foreach (var message in UserMessages)
 {
     <div>
@@ -26,10 +25,3 @@
     <h4>@CurrentMessage.DateSent</h4>
     <p>@CurrentMessage.Content</p>
 }
-</div>
-
-<style>
-    .wrapper {
-        background: green;
-    }
-</style>
