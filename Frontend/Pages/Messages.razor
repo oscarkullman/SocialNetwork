@@ -11,17 +11,12 @@
     <div class="current-message">
         <h3>Current message</h3>
         <div class="current-message__content">
-            @if (!string.IsNullOrEmpty(CurrentMessage.Content))
-                {
             <h5>Sender: <a href="/profile/@CurrentMessage.Sender">@CurrentMessage.Sender</a></h5>
             <h5>Reciever: @CurrentMessage.Reciever</h5>
             <h6>@CurrentMessage.DateSent</h6>
             <div class="current-message__content__text">
                 <p>@CurrentMessage.Content</p>
             </div>
-
-            
-            }
         </div>
             
     </div>
@@ -31,7 +26,7 @@
             {
                 <div class="one-message">
                     <h4>@message.Sender</h4>
-                    <p>@(message.Content.Substring(0, (message.Content.Length < 14 ? message.Content.Length : 14)))@(message.Content.Length >= 14 ? "..." : "")</p>
+                    <p>@(message.Content.Substring(0, (message.Content.Length <= 14 ? message.Content.Length : 14)))@(message.Content.Length > 14 ? "..." : "")</p>
                     <button class="message-button" onclick="@(() => SetCurrentMessage(message))">Open</button>
                 </div>
             }
